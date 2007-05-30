@@ -1,0 +1,5 @@
+
+\section{Egy kézenfekvõ megoldás -- öröklõdés}
+Ha az ember geometriai alakzatokat rajzoló és manipuláló programot akar írni, akkor azt objektum orientált megközelítés, vagyis az öröklõdés jó vá\-lasz\-tás\-nak tûnik. A tipikus példa, az öröklõdés és az objektum orientált programozás szemléltetésére pontosan az ilyen rajzoló programok implementációja. Egy \verb'Shape' bázis-osztályból indulnánk ki és ebbõl származtatnánk a \verb'Polygon', \verb'Circle' és hasonló osztályokat. A \verb'Shape' osztályban deklaráljuk a virtuális \verb'draw', \verb'move', \verb'rotate', stb. metódusokat, majd a származtatott osztályokban definiáljuk õket és egy \verb'Shape*' típusú, azaz alakzatokra mutató mutatókat tartalmazó tömbbe pakoljuk a rajzlap tartalmát. 
+
+A Java elsõ kiadásai ezt a megközelítést alkalmazták a szabványos tárolók megvalósításához. Jávában minden típus az \verb'Object' típusból származik, azaz Jávában minden objektum típusú \cite{tij}. Így kézenfekvõ volt az a megoldás, hogy az \verb'ArrayList', a \verb'List', a \verb'Set' és a \verb'Map' konténerek \verb'Object' típusú elemeket (pontosabban referenciákat) tárolnak. 

@@ -1,0 +1,2 @@
+\select@language {magyar}
+\contentsline {section}{\numberline {1.}Bevezet\H o}{1}

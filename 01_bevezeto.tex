@@ -1,6 +1,7 @@
 \section{Bevezetõ}
 1994-ben Erwin Unruh bemutatta a C++ szabvány bizottságnak bemutatta az elsõ sablon-metaprogramot, amely, igaz nem fordult le, de viszont a hibaüzenetek prímszámok voltak. Felismervén a C++-ba beágyazott sablon-mechanizmus Turing-teljességét, mint (fordítás idejû) nyelv, megfogant a sablon-metaprogramozás (template metaprogramming) fogalma és a generikus programozás paradigma.
 
-A Graphical Template Library (GTL), egy olyan kísérleti generikus C++ sablon-könyvtár, ami a C++ Standard Template Library (STL) alapötletét próbálja átvinni a grafikus feladatok körébe. A GTL-t 1999-ben készítette el Kisteleki Róbert (ELTE programtervezõ matematikus hallgató) és Dr. Porkoláb Zoltán. 
+A Graphical Template Library (GTL) \cite{gsdgtl}, egy olyan kísérleti generikus C++ sablon-könyvtár, ami a C++ Standard Template Library (STL) alapötletét próbálja átvinni a grafikus feladatok körébe. A GTL-t 1999-ben készítette el Kisteleki Róbert (ELTE programtervezõ matematikus hallgató) és Dr. Porkoláb Zoltán. 
 
 Eredetileg, a feladat, egy rajzoló program megvalósítása lett volna, amely a GTL-re támaszkodik és a GTL által nyújtott alakzatokat tudja kirajzolni és ezeken a GTL algoritmusait, mûveleteit tudja végrehajtani. A program fejlesztése során, kizárólag a generikus programozás eszközeire kellet használni, az öröklõdést és a virtuális függvények használatát teljesen mellõzve. A program elkészítése folyamán, komoly problémákba ütköztünk, melyeket a GTL, vagyis általánosan, a generikus programozás korlátai okoztak. Így a feladat bõvült, ezen problémák és korlátok feltárásával és annak a bizonyításával, hogy ezek a korlátok, az elvárt megszorítások (dinamikus polimorfizmus mellõzése) mellet nem kerülhetõek meg. 
+

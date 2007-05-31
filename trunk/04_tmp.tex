@@ -20,4 +20,24 @@ int main()
     return 0;
 }
 \end{verbatim}
-Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' meghívódik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a 1307674368000 literált kapja értékül.
+Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' meghívódik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a 1307674368000 literált kapja értékül. Vagyis nem írhatjuk a következõt:
+\begin{verbatim}
+int main()
+{
+   int fact; std::cin >> fact;
+   std::cout << fact << endl;
+   return 0;
+}
+\end{verbatim}
+ugyan is a nem találhatja ki a fordító program, milyen számot fog a felhasználó bevinni.
+
+Természetesen jogos az észrevétel, hogy minek az ossz veszõdés, hogy írjunk egy eleve nehezen érthetõ és talán félrevezetõ sablon-metaporgramot ha egy egyszerû kalkulátor programmal, vagy akár papíron kiszámolhatjuk, hogy $15!=1307674368000$ és az elõzõ példa programunkat a következõ, elvileg azonos programra:
+\begin{verbatim}
+int main()
+{
+   int fact = 1307674368000; // == 15!
+   std::cout << fact << endl;
+   return 0;
+}
+\end{verbatim}
+Ennek több oka is lehet. Egyrészt ha többsz

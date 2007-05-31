@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.2.4)  31 MAY 2007 09:32
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.2.4)  31 MAY 2007 10:28
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -184,24 +184,8 @@ LaTeX Font Info:    ... okay on input line 99.
  (01_bevezeto.tex) (02_oroklodes.tex [1
 
 ]) (03_generic.tex
-Overfull \hbox (2.90286pt too wide) in paragraph at lines 2--3
-\OT1/cmr/m/n/12 elegans modon ol-dottak meg, ge-ne-ri-kus prog-ra-mozassal,
- azaz sablon-osztalyok
- []
-
-
-Overfull \hbox (8.32086pt too wide) in paragraph at lines 2--3
-\OT1/cmr/m/n/12 mind osztaly-sablonok, me-lye-ket a tarolando ele-mek tpus
-aval pa-rameterezunk.
- []
-
-
-Overfull \hbox (26.32022pt too wide) in paragraph at lines 2--3
-\OT1/cmr/m/n/12 iteratorokon ke-resztul kom-mu-nikalnak a kontenerek-kel. A
-z STL-nek megkozeltese
- []
-
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 4.
+
 ("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
@@ -216,7 +200,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 8.
 
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
-)) (z_bib.tex [2])
+) [2]) (z_bib.tex)
 \tf@thm=\write3
 
 [3] (gtl.aux) ) 
@@ -229,4 +213,4 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  27i,4n,24p,1010b,145s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on gtl.dvi (3 pages, 11120 bytes).
+Output written on gtl.dvi (3 pages, 11500 bytes).

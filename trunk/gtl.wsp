@@ -1,0 +1,11 @@
+[main]
+.\gtl.tex
+
+[texfiles]
+.\01_bevezeto.tex
+.\02_oroklodes.tex
+.\03_generic.tex
+.\04_tmp.tex
+.\cimlap.tex
+.\z_bib.tex
+

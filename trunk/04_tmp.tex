@@ -20,7 +20,9 @@ int main()
     return 0;
 }
 \end{verbatim}
-Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' meghívódik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a 1307674368000 literált kapja értékül. Vagyis nem írhatjuk a következõt:
+Mi is fog történni amikor a fordító lefordítja a programunkat? 
+A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' meghívódik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. 
+Nagyon fontos észre venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a 1307674368000 literált kapja értékül. Vagyis nem írhatjuk a következõt:
 \begin{verbatim}
 int main()
 {
@@ -31,7 +33,7 @@ int main()
 \end{verbatim}
 ugyan is a nem találhatja ki a fordító program, milyen számot fog a felhasználó bevinni.
 
-Természetesen jogos az észrevétel, hogy minek az ossz veszõdés, hogy írjunk egy eleve nehezen érthetõ és talán félrevezetõ sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron kiszámolhatjuk, hogy $15!=1307674368000$ és az elõzõ példa programunkat a következõ, elvileg azonos programra:
+Természetesen jogos az észrevétel, hogy minek az ossz veszõdés, hogy írjunk egy eleve nehezen érthetõ és talán félrevezetõ sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron kiszámolhatjuk, hogy $15!=1307674368000$ és az elõzõ példa programunkat a következõ, elvileg azonos programra?
 \begin{verbatim}
 int main()
 {
@@ -40,4 +42,27 @@ int main()
    return 0;
 }
 \end{verbatim}
-Ennek több oka is lehet. Egyrészt ha többsz
+Hogy ezt a kérdést megvizsgáljunk vegyünk talán egy másik, hasonló példát:
+\begin{verbatim}
+template <unsigned long N> 
+struct binary
+{
+  static unsigned const value
+    = binary<N/10>::value << 1 // prepend higher bits
+    | N%10; // to lowest bit
+};
+template <> // specialization
+struct binary<0> // terminates recursion
+{
+  static unsigned const value = 0;
+};
+\end{verbatim}
+Ezt a metaprogramot a következõ módon alkalmazhatjuk:
+\begin{verbatim}
+int main()
+{
+  std::cout << binary<101010>::value;
+  return 0;
+}
+\end{verbatim}
+Ezzel a kis trükkel, megtehetjük azt, hogy egy számot a bináris alakjában is megadhatunk ha úgy kényelmesebb. 

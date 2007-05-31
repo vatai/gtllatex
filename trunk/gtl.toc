@@ -1,2 +1,11 @@
 \select@language {magyar}
-\contentsline {section}{\numberline {1.}Bevezet\H o}{1}
+\contentsline {section}{\numberline {1.}Egy k\'ezenfekv\H o megold\'as -- \"or\"okl\H od\'es}{3}
+\contentsline {section}{\numberline {2.}Generikus programoz\'as \'es az STL}{3}
+\contentsline {section}{\numberline {3.}Sablon m\'agia -- Template Metaprogramming}{4}
+\contentsline {section}{\numberline {4.}GTL}{6}
+\contentsline {subsection}{\numberline {4.1.}A GTL el\H onyei}{6}
+\contentsline {subsection}{\numberline {4.2.}H\'atr\'anyai}{6}
+\contentsline {section}{\numberline {5.}M\'as k\"onyvt\'arak}{6}
+\contentsline {subsection}{\numberline {5.1.}CGAL}{6}
+\contentsline {subsection}{\numberline {5.2.}Boost}{6}
+\contentsline {section}{\numberline {6.}\'Uj lehet\H os\'egek}{6}

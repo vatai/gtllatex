@@ -1,0 +1,23 @@
+\section{Sablon mágia -- Template Metaprogramming}
+Ilyen sok problémát megoldani, ilyen hatékonyan szinte mágiának tûnhet. Sokáig annak is tûnt és ez arra ösztönzött pár C++ programozót, hogy kicsit jobban megvizsgálják a sablonok által nyújtott lehetõségeket. Így történt, hogy 1994-ben Erwin Unruh bemutatta a C++ szabvány bizottság elõtt az elsõ sablon-metaprogramot, amely, igaz nem fordult le, de viszont a hibaüzenetek prímszámok voltak. Felismervén a C++-ba beágyazott sablon-mechanizmus Turing-teljességét, mint (fordítás idejû) nyelv, megfogant a C++ sablon-metaprogramozás (template metaprogramming) fogalma. 
+
+A sablonok, egy a rekurzív függvény híváshoz hasonló elveken mûködik. A részben specializált sablonok, függvény híváshoz hasonlítanak és a teljes specializációk pedig terminálják a rekurziót. Ezt nagyon jól szemlélteti a következõ példa:
+\begin{verbatim}
+// factorial.cpp
+#include <iostream>
+
+template <int N> struct Factorial
+{ enum { value = N * Factorial<N-1>::value }; };
+
+template <> struct Factorial<1>
+{ enum { value = 1 }; };
+
+// example use
+int main()
+{
+    const int fact15 = Factorial<15>::value;
+    std::cout << fact15 << endl;
+    return 0;
+}
+\end{verbatim}
+Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' meghívódik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a 1307674368000 literált kapja értékül.

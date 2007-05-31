@@ -4,8 +4,8 @@ Version=2
 
 [SessionInfo]
 ActiveTab=2
-FrameCount=4
-ActiveFrame=3
+FrameCount=6
+ActiveFrame=4
 
 [Frame0]
 Columns=1
@@ -32,9 +32,9 @@ cxCur=493
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=102
-Cursor.column=17
-TopSubLine=87
+Cursor.row=103
+Cursor.column=13
+TopSubLine=88
 
 [Frame1]
 Columns=1
@@ -61,7 +61,7 @@ cxCur=943
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=1
+Cursor.row=0
 Cursor.column=0
 TopSubLine=0
 
@@ -97,8 +97,8 @@ TopSubLine=0
 [Frame3]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-4
@@ -111,15 +111,73 @@ Class=CLatexEdit
 Document=03_generic.tex
 
 [Frame3_Row0]
-cyCur=599
+cyCur=362
 cyMin=10
 
 [Frame3_Col0]
-cxCur=1083
+cxCur=921
 cxMin=10
 
 [Frame3_View0,0]
 Cursor.row=11
-Cursor.column=330
+Cursor.column=252
+TopSubLine=10
+
+[Frame4]
+Columns=1
+Rows=1
+Flags=2
+ShowCmd=3
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-4
+MaxPos.y=-30
+NormalPos.left=88
+NormalPos.top=116
+NormalPos.right=1038
+NormalPos.bottom=533
+Class=CLatexEdit
+Document=04_tmp.tex
+
+[Frame4_Row0]
+cyCur=599
+cyMin=10
+
+[Frame4_Col0]
+cxCur=1083
+cxMin=10
+
+[Frame4_View0,0]
+Cursor.row=0
+Cursor.column=0
+TopSubLine=0
+
+[Frame5]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-4
+MaxPos.y=-30
+NormalPos.left=110
+NormalPos.top=145
+NormalPos.right=1060
+NormalPos.bottom=561
+Class=CLatexEdit
+Document=z_bib.tex
+
+[Frame5_Row0]
+cyCur=361
+cyMin=10
+
+[Frame5_Col0]
+cxCur=921
+cxMin=10
+
+[Frame5_View0,0]
+Cursor.row=0
+Cursor.column=0
 TopSubLine=0
 

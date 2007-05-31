@@ -1,10 +1,7 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  31 MAY 2007 00:28
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.2.4)  31 MAY 2007 09:32
 entering extended mode
-**C:/Documents*and*Settings/vatai/My*Documents/VII-X*semester/0*kotelezo/_diplo
-ma/_tex/gtl.tex
-
-("C:\Documents and Settings\vatai\My Documents\VII-X semester\0 kotelezo\_diplo
-ma\_tex\gtl.tex"
+**gtl.tex
+(gtl.tex
 LaTeX2e <2005/12/01>
 Babel <v3.8g> and hyphenation patterns for english, dumylang, nohyphenation, ge
 rman, ngerman, french, hungarian, loaded.
@@ -186,20 +183,36 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 99.
 LaTeX Font Info:    ... okay on input line 99.
  (01_bevezeto.tex) (02_oroklodes.tex [1
 
-{psfonts.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 8.
+]) (03_generic.tex
+Overfull \hbox (2.90286pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/12 elegans modon ol-dottak meg, ge-ne-ri-kus prog-ra-mozassal,
+ azaz sablon-osztalyok
+ []
 
+
+Overfull \hbox (8.32086pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/12 mind osztaly-sablonok, me-lye-ket a tarolando ele-mek tpus
+aval pa-rameterezunk.
+ []
+
+
+Overfull \hbox (26.32022pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/12 iteratorokon ke-resztul kom-mu-nikalnak a kontenerek-kel. A
+z STL-nek megkozeltese
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 4.
 ("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 8.
-LaTeX Font Info:    Try loading font information for U+msa on input line 12.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 4.
+LaTeX Font Info:    Try loading font information for U+msa on input line 8.
 
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 12.
+LaTeX Font Info:    Try loading font information for U+msb on input line 8.
 
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
@@ -208,20 +221,12 @@ File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 
 [3] (gtl.aux) ) 
 Here is how much of TeX's memory you used:
- 2020 strings out of 95402
- 21780 string characters out of 1187029
+ 2022 strings out of 95403
+ 21558 string characters out of 1187056
  79008 words of memory out of 1078587
  5117 multiletter control sequences out of 60000
  9416 words of font info for 36 fonts, out of 1000000 for 2000
  14 hyphenation exceptions out of 8191
- 27i,4n,24p,1095b,209s stack positions out of 5000i,500n,10000p,200000b,32768s
-PDF statistics:
- 28 PDF objects out of 300000
- 0 named destinations out of 300000
- 1 words of extra memory for PDF output out of 10000
-<C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti12.pfb><
-C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb><C:/Program Files
-/MiKTeX 2.5/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.5/font
-s/type1/bluesky/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/
-cm/cmr12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb>
-Output written on gtl.pdf (3 pages, 53719 bytes).
+ 27i,4n,24p,1010b,145s stack positions out of 5000i,500n,10000p,200000b,32768s
+
+Output written on gtl.dvi (3 pages, 11120 bytes).

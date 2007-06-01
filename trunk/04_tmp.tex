@@ -1,12 +1,15 @@
 \section{Sablon mágia -- Template Metaprogramming}
-Ilyen sok problémát megoldani, ilyen hatékonyan szinte mágiának tûnhet. Sokáig annak is tûnt és ez arra ösztönzött pár C++ programozót, hogy kicsit jobban megvizsgálják a sablonok által nyújtott lehetõségeket. Így történt, hogy 1994-ben Erwin Unruh bemutatta a C++ szabvány bizottság elõtt az elsõ sablon-metaprogramot, amely, igaz nem fordult le, de viszont a hibaüzenetek prímszámok voltak. Felismervén a C++-ba beágyazott sablon-mechanizmus Turing-teljességét, mint (fordítás idejû) nyelv, megfogant a C++ sablon-metaprogramozás (template metaprogramming) fogalma. 
+Ilyen sok problémát megoldani, ilyen hatékonyan szinte mágiának tûnhet. Sokáig annak is tûnt és ez arra ösztönzött pár C++ programozót, hogy kicsit jobban megvizsgálják a sablonok által nyújtott lehetõségeket. Így történt, hogy 1994-ben Erwin Unruh bemutatta a C++ szabvány bizottság elõtt az elsõ sablon-metaprogramot, amely, igaz nem fordult le, de viszont a hibaüzenetek prímszámok voltak. Felismervén a C++-ba beágyazott sablon-mechanizmus, mint (fordítás idejû) nyelv Turing-teljességét, megfogant a C++ sablon-metaprogramozás (template metaprogramming) fogalma \cite{tmpboost}. 
 
-A sablonok, egy a rekurzív függvény híváshoz hasonló elveken mûködik. A részben specializált sablonok, függvény híváshoz hasonlítanak és a teljes specializációk pedig terminálják a rekurziót. Ezt nagyon jól szemlélteti a következõ példa:
+A sablonok, pontosabban a sablon-metaprogramozás, a funkcionális nyelvekhez hasonló módon mûködik. A részben specializált sablonok, függvény hívásnak felelnek meg és a teljes specializációk pedig termek, vagyis konstansok. 
+
+\subsection{Fordítás-idejû aritmetika}
+Ezt nagyon jól szemlélteti a következõ példa\cite{haladocpp}:
 \begin{verbatim}
 // factorial.cpp
 #include <iostream>
 
-template <int N> struct Factorial
+template <unisgned long N> struct Factorial
 { enum { value = N * Factorial<N-1>::value }; };
 
 template <> struct Factorial<1>
@@ -20,29 +23,29 @@ int main()
     return 0;
 }
 \end{verbatim}
-Mi is fog történni amikor a fordító lefordítja a programunkat? 
-A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' meghívódik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. 
-Nagyon fontos észre venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a 1307674368000 literált kapja értékül. Vagyis nem írhatjuk a következõt:
+Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' történik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre\-venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a $1307674368000$ literált kapja értékül. Vagyis nem írhatjuk a következõt:
 \begin{verbatim}
 int main()
 {
-   int fact; std::cin >> fact;
+   int fact; std::cin >> in;
+   fact = Factorial<in>::value; \\ error: sablon nem 
+                                \\ példányosítható változóval
    std::cout << fact << endl;
    return 0;
 }
 \end{verbatim}
-ugyan is a nem találhatja ki a fordító program, milyen számot fog a felhasználó bevinni.
+ugyan is a fordító program nem találhatja ki, milyen számot fog a felhasználó bevinni.
 
-Természetesen jogos az észrevétel, hogy minek az ossz veszõdés, hogy írjunk egy eleve nehezen érthetõ és talán félrevezetõ sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron kiszámolhatjuk, hogy $15!=1307674368000$ és az elõzõ példa programunkat a következõ, elvileg azonos programra?
+Természetesen jogos az észrevétel, hogy minek írjunk egy furcsa, eleve nehezen érthetõ és talán félrevezetõ \verb|Factorial| sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron is kiszámolhatjuk, hogy $15!=1307674368000$. Így a következõ program, ugyan azt tudja, csak sablon meta-programozás nélkül:
 \begin{verbatim}
 int main()
 {
-   int fact = 1307674368000; // == 15!
+   int fact = 1307674368000; // = Factorial<15>::value helyett
    std::cout << fact << endl;
    return 0;
 }
 \end{verbatim}
-Hogy ezt a kérdést megvizsgáljunk vegyünk talán egy másik, hasonló példát:
+Hogy ezt a kérdést megvizsgáljunk,  vegyünk talán egy másik gyakorlatiasabb példát példát, ugyanis a faktoriális csak egy iskolapélda a rekurzív függvény hívás lehetõségének bemutatására sablon meta-programozásban. A következõ meta-program egy bináris alakban megadott szám értékét számolja ki:
 \begin{verbatim}
 template <unsigned long N> 
 struct binary
@@ -51,13 +54,14 @@ struct binary
     = binary<N/10>::value << 1 // prepend higher bits
     | N%10; // to lowest bit
 };
+
 template <> // specialization
 struct binary<0> // terminates recursion
-{
-  static unsigned const value = 0;
+{ 
+  static unsigned const value = 0; 
 };
 \end{verbatim}
-Ezt a metaprogramot a következõ módon alkalmazhatjuk:
+Ezt a metaprogramot használva, a következõ program a $42$es számot fogja kiírni:
 \begin{verbatim}
 int main()
 {
@@ -65,4 +69,23 @@ int main()
   return 0;
 }
 \end{verbatim}
-Ezzel a kis trükkel, megtehetjük azt, hogy egy számot a bináris alakjában is megadhatunk ha úgy kényelmesebb. 
+Talán ez a példa jobban szemlélteti a sablon meta-programozás lehetõségeit, ugyanis a \verb|binary| segítségével, nem kell kézzel, vagy futás-idõben számolgatni a bináris konstansokat, amire, ha például hardver közeli programot írunk, akkor lehet, hogy nem csak egyszer lesz szükségünk. Így nem is csak egy csomó számolást spóroltunk meg magunknak, hanem egy csomó hibát is kiszûrtünk. Ez lényegében a C++ kiterjesztésének is tekinthetõ, ugyanis a nyel már támogatta a hexadecimális és az oktális literálokat, most már a bináris literálokat is támogatja. Tehát 
+\begin{verbatim}
+  ( 42 == 052 && 
+    052== 2A && 
+    2A == binary<101010>::value ) ; // true!
+\end{verbatim}
+
+\subsection{Típus aritmetika}
+Az elképzelhetõ, hogy a \verb'binary' meta-programnak hasznát vehetjük valódi (pl. hardver közeli) programoknál, de azért a \verb'Factorial' talán kicsit erõlte\-ttet ``iskola'' példa, ugyanis faktoriálist és mást numerikus aritmetikát való\-színûbb, hogy futás-idõben akarunk számolni. Viszont a sablon meta-progra\-mozás igazi ereje a típus aritmetikában rejlik. 
+
+Ez elõzõ két példánál, \verb'unsigned long' típusú paraméterrel kellet példá\-nyo\-sítani a sablonokat, de jól tudjuk, hogy egy tetszõleges \verb"T" típust is adhatunk át sablonoknak. A meghatározott típusú konstansokat és típus paramétereket, vagyis azokat a fogalmakat amit átadhatunk egy sablonnak \emph{meta-adatnak} nevezzük.
+
+A típus számolgatásokra egy szemléletes példa található D. Abrahams és A. Gurkovoy könyvében \cite{tmpboost}, ahol a sablon meta-programozással modellezik a fizikai mértékegységek kompatibilitását és olyan programozást tesznek lehetõvé, hogy például egy hosszt és idõt ábrázoló változó hányadosát csak egy sebességet ábrázoló változónak adhatunk értékül.
+
+  quantity<float,length> l( 1.0f );
+  quantity<float,mass> m( 2.0f );
+
+  m = l; // fordítás idejû hiba
+  
+  

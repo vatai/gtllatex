@@ -3,12 +3,11 @@
 
 [texfiles]
 .\01_bevezeto.tex
-.\02_oroklodes.tex
-.\03_generic.tex
 .\04_tmp.tex
 .\z_bib.tex
 .\00_cim.tex
 .\06_mas.tex
 .\05_gtl.tex
 .\07_uj.tex
+.\02_kialakul.tex
 

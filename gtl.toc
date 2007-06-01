@@ -1,11 +1,15 @@
 \select@language {magyar}
-\contentsline {section}{\numberline {1.}Egy k\'ezenfekv\H o megold\'as -- \"or\"okl\H od\'es}{3}
-\contentsline {section}{\numberline {2.}Generikus programoz\'as \'es az STL}{3}
-\contentsline {section}{\numberline {3.}Sablon m\'agia -- Template Metaprogramming}{4}
-\contentsline {section}{\numberline {4.}GTL}{6}
-\contentsline {subsection}{\numberline {4.1.}A GTL el\H onyei}{6}
-\contentsline {subsection}{\numberline {4.2.}H\'atr\'anyai}{6}
-\contentsline {section}{\numberline {5.}M\'as k\"onyvt\'arak}{6}
-\contentsline {subsection}{\numberline {5.1.}CGAL}{6}
-\contentsline {subsection}{\numberline {5.2.}Boost}{6}
-\contentsline {section}{\numberline {6.}\'Uj lehet\H os\'egek}{6}
+\contentsline {section}{\numberline {1.}A Generikus programoz\'as kialakul\'asa}{3}
+\contentsline {subsection}{\numberline {1.1.}Egy k\'ezenfekv\H o megold\'as -- \"or\"okl\H od\'es}{3}
+\contentsline {subsection}{\numberline {1.2.}Az els\H o generikus C++ k\"onyvt\'ar}{4}
+\contentsline {section}{\numberline {2.}Sablon m\'agia -- Template Metaprogramming}{5}
+\contentsline {subsection}{\numberline {2.1.}Ford\IeC {\'\i }t\'as-idej\H u aritmetika}{6}
+\contentsline {subsection}{\numberline {2.2.}T\IeC {\'\i }pus aritmetika}{8}
+\contentsline {section}{\numberline {3.}GTL}{9}
+\contentsline {subsection}{\numberline {3.1.}Alkalmaz\'as \'es implement\'aci\'o}{9}
+\contentsline {subsection}{\numberline {3.2.}El\H ony\"ok}{9}
+\contentsline {subsection}{\numberline {3.3.}H\'atr\'anyok}{9}
+\contentsline {section}{\numberline {4.}M\'as k\"onyvt\'arak}{9}
+\contentsline {subsection}{\numberline {4.1.}CGAL}{9}
+\contentsline {subsection}{\numberline {4.2.}Boost}{9}
+\contentsline {section}{\numberline {5.}\'Uj lehet\H os\'egek}{9}

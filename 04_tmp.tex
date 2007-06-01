@@ -81,11 +81,22 @@ Az elképzelhetõ, hogy a \verb'binary' meta-programnak hasznát vehetjük valódi (p
 
 Ez elõzõ két példánál, \verb'unsigned long' típusú paraméterrel kellet példá\-nyo\-sítani a sablonokat, de jól tudjuk, hogy egy tetszõleges \verb"T" típust is adhatunk át sablonoknak. A meghatározott típusú konstansokat és típus paramétereket, vagyis azokat a fogalmakat amit átadhatunk egy sablonnak \emph{meta-adatnak} nevezzük.
 
-A típus számolgatásokra egy szemléletes példa található D. Abrahams és A. Gurkovoy könyvében \cite{tmpboost}, ahol a sablon meta-programozással modellezik a fizikai mértékegységek kompatibilitását és olyan programozást tesznek lehetõvé, hogy például egy hosszt és idõt ábrázoló változó hányadosát csak egy sebességet ábrázoló változónak adhatunk értékül.
-
+A típus számolgatásokra egy szemléletes példa található D. Abrahams és A. Gurkovoy könyvében \cite{tmpboost}, ahol a sablon meta-programozással modellezik a fizikai mértékegységek kompatibilitását és olyan programozást tesznek lehetõvé, hogy például egy hosszt és idõt ábrázoló változó hányadosát csak egy sebességet ábrázoló változónak adhatunk értékül. Az említett példa a következõ kódot teszi lehetõvé:
+\begin{verbatim}
   quantity<float,length> l( 1.0f );
   quantity<float,mass> m( 2.0f );
 
-  m = l; // fordítás idejû hiba
+  m = l; // fordítás idejü hiba
+  l = l + quantity<float,lengt>( 3.4f ); // ok
+
+  quantity<float,acceleration> a(9.8f);
+  quantitiy<float,force> f;
   
+  f = m * a; // ok: erö = tömeg*táv/idö^2
   
+  quantity<float,mass> m2 = f/a; // m2=a/f nem fordulna le
+\end{verbatim}  
+
+Természetesen a \verb"m = l;" jellegû szûrést nem túl nagy ördöngösség észre\-venni egy fordítónak. Az Ada programozási nyelvben, \verb"type" paranccsal deklarált \verb"mass" és \verb"length" típusú változók, explicit konverzió nélkül, nem adhatók értékül egymásnak. Az igazi nehézség abban rejlik, hogy a fordító, meg tudja azt állapítani, hogy ha a tömeg ($kg$) típusú \verb|m| változót szorzunk a gyorsulással ($m/s^2$) típusú \verb|a| változóval, akkor erõt ($kg\cdot m/s^2$) kapunk, vagy hogy erõt ($kg\cdot m/s^2$) osztva gyorsulással ($m/s^2$) akkor tömeget ($kg$) kapunk. Tehát a megfelelõ meta-programozással, az utolsó sort biztos, hogy nem fogjuk elrontani, vagyis ha elrontjuk és \verb"m2=f/a" helyet \verb"m2=a/f"-et írunk, jelez a fordító és a programunk nem fordul le. Az Ada csak annyit tudd, hogy jelez, hogy a tömeg és a gyorsulás nem ugyan az, a mi meta-programunk meg azt is tudja, hogy mikor melyik két típus alkot egy harmadikat.
+
+Egy ilyen meta-programot összehozni nem kis feladat, tehát nem biztos, hogy megéri, viszont a Boost \cite{boost} Template Metaprogramming könyvtárai (Boost \emph{MPL Library} \cite{boost_mpl}, Boost \verb"static_assert" \cite{boost_staticassert} és Boost \emph{TypeTraits}\cite{boost_typetraits}) segít\-ségünkre lehetnek. A Boost egy csomó segéd metaprogramot, metafügg\-vényt, metafüggvény osztályt, magasabb-rendû metafüggvényt stb. a rendelkezésünkre bocsájt, melyek nagyságrendekkel egyszerûbbé teszik a meta-programozást. Sõt, a Boost MPL sokkal általánosabb és programozási szempontból sokkal hasznosabb eszközöket nyújt, mint az elõzõ, fizikai mérték\-egységeket összeegyeztetõ példánk, de a Boost-ról és a könyvtárairól részlet\-esebben majd késõbb.

@@ -1,5 +1,10 @@
 \section{GTL}
-%%%%% A GTL elkészítését az ösztönözte, hogy az alakzatok konténerekre, az transzformációs mûveletek pedig algoritmusokra hasonlítanak. A GTL úgy van felépítve mintha pontokat (pontosabban \verb'vect<T>' típusú elemeket) tároló konténerek lennének, és az alakzatok iterátorai ezeken a pontokon, azaz a csúcsokon iterálnak végig. 	
-\subsection{Alkalmazás és implementáció}
+Sokáig az STL volt az egyetlen a gyakorlatban hatékonyan alkalmazható generikus könyvtár. Az STL bemutatta a generikus programozás lehetõségei\-nek és erejének egy részét, de mivel nem volt más példa és összehasonlítási alap, nem igaza tapasztalhattuk meg a generikus programozás teljes erejét és korlátait sem. Többek között, ez volt az egyik oka a GTL kidolgozásának.
+
+A GTL az STL mintájára irták, viszont most a konténereket alakzatok (\verb"poly", \verb"regpoly", \verb"circle" ) helyettesítik, algoritmusokat pedig transzformációs mûveletek(\verb"move", \verb"rotate", \verb"mirror"). 
+
+\subsection{Alkalmazás és algoritmusok implementációja}
+Az két dimenziós alakzatokat a csúcsaikkal tudjuk leírni. A csúcsok pontok a síkban vagyis két dimenziós vektoroknak is felfoghatjuk õket. A GTL a csúcsokat \verb"vect<T>" típusú osztály-sablonokkal írja le, ahol a 
+
 \subsection{Elõnyök}
 \subsection{Hátrányok}

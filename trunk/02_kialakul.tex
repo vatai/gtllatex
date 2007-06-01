@@ -1,0 +1,35 @@
+\section{A Generikus programozás kialakulása}
+A C++ elsõ kereskedelmi forgalomba hozatalakor, 1985-ban még nem támo\-gatta a a generikus programozást, mivel nem volt benne sablon mechanizmus. A sablonokat csak késõbb építették be a nyelvbe, ezzel lehetõvé téve a generikus programozás kialakulását.
+\subsection{Egy kézenfekvõ megoldás -- öröklõdés}
+Ha az ember geometriai alakzatokat rajzoló és manipuláló programot akar írni, akkor azt objektum orientált megközelítés, vagyis az öröklõdés jó vá\-lasz\-tás\-nak tûnik. A tipikus példa, az öröklõdés és az objektum orientált programozás szemléltetésére pontosan az ilyen rajzoló programok implementációja. Egy \verb'Shape' bázis-osztályból indulunk ki és ebbõl származtatjuk a \verb'Polygon', \verb'Circle' és hasonló osztályokat. A \verb'Shape' osztályban deklaráljuk a virtuális \verb'draw', \verb'move', \verb'rotate', stb. metódusokat, majd a származtatott osztályokban definiáljuk õket. Egy \verb'Shape*' típusú, azaz alakzatokra mutató mutatókat tároló tömbbe pakoljuk a rajzlap tartalmát, amit egy \verb|DrawAll| függvénnyel rajzolnák ki, amely a tömb minden elemére meghívná a megfelelõ alagzat virtuális \verb|draw| metódusát. Ilyen megoldással erõsen tá\-masz\-kodunk az öröklõdésre és a dinamikus polimorfizmusra.
+
+A Java elsõ kiadásai ezt a megközelítést alkalmazták a szabványos tárolók megvalósításához. Jávában minden típus az \verb|Object| típusból származik, azaz Jávában ``minden \verb|Object|'' \cite{tij}. Így kézenfekvõ volt az a megoldás, hogy az \verb'ArrayList', a \verb'List', a \verb'Set' és a \verb'Map'-hez hasonló konténerek \verb'Object' típusú elemeket (pontosabban referenciákat) tárolnak. Ennek egyértelmû hátránya volt, hogy a tárolók úgymond nem ``tudtak'' a tárolt elemek tí\-pusáról semmit, így nem igazán lehet a konténer méretének lekérdezésén és az elemek (\verb|Object| típusú referenciájának) lekérdezésén kívül mást csinálni. Ez könnyen megoldható egy-egy új ``típus-tudatos'' osztály bevezetésével:
+\begin{verbatim}
+    public class ShapeList {
+      private List list = new ArrayList();
+      public void add(Shape sh) { list.add(sh); }
+      public Shape get(int index) {
+        return (Shape)list.get(index); // konverzió
+      }
+      public int size() { return list.size(); }
+    } 
+\end{verbatim}
+
+Így már ``típus-tudatos'' a \verb|Shape| listánk, de ezt minden típus konténer párra ezt végig kellene csinálni, és lényegében ugyan azt a kódot írnánk le, csak például \verb|ArrayList| helyett \verb|Set| szerepelne. Ez egy elég unalmas monoton munka, amibe az ember gyorsan belefárad és hibázik, viszont nagyon úgy tûnik, hogy egy számítógép könnyel el tudná végezni ezt a feladatot. És még nem is említettük meg a futás idejû pazarlást ami a \verb|get()| hívásakor végrehajtott dinamikus típuskonverzió eredményez és az alakzatok virtuális függvény hívásainak költségét. 
+
+A C++ támogatja a típusos tömböket, így C++-ban nem lenne szükség a \verb|ShapeList| osztályra, elég lenne egy \verb|Shape* shapes[];| változó. Gyorsan belátnánk, hogy az alakzatokat, tömbben tárolni, ami egy összefüggõ tárterület a memóriában, nem lesz hosszútávon túl szerencsés megoldás. Az új alakzatok hozzáadásával szükség lesz a tömb dinamikus bõvítésére, vagyis jobb lenne ha egy könnyen és hatékonyan bõvíthetõ listában tárolnánk az alakzatokat. Viszont szigorúan a C++ nyelvben, nincs beleépítve a láncolt lista, így azt vagy magunk implementáljuk, vagy egy elõre megírt könyvtár segítségéhez fordulunk. Sajnos a második út a C++-ban, a sablonok bevezetése elõtt nem igazán volt járható, vagyis, visszatértünk az elõzõ \verb|ShapeList| problémához, ugyanis nagy valószínûséggel a lista elemeit \verb|void*| típussal deklarálták a könyvtár írói, hogy tetszõleges típusú elemet tudjon tárolni és újra nem tud a lista semmit a tárolt elem típusáról. Tehát akár melyik utat választjuk, akár saját lista implementációt, akár egy elõre megírt \verb|void*|-okat tároló listát választunk, nem kerülhetjük ki a lista típusossá tételéhez szükséges extra programozás, ami egyúttal hibaforrás is. Legalábbis ez volt a helyzet a sablonok bevezetése elõtt.
+
+\subsection{Az elsõ generikus C++ könyvtár}
+A konténereket és a rajtuk végrehajtandó algoritmusokat C++-ban nagyon elegáns módon oldották meg,  osztály-sablon\-ok és függvények-sablon\-ok segít\-ségével. A C++ STL könyvtárában (Standard Template Library, ami ma már része a C++ szabványnak), a konté\-nerek (\verb'vector', \verb'list', \verb'set' stb.) mind osztály-sablonok, melyeket a tárolandó elemek típusával paramétere\-zünk. Ezek mellé, az STL még a megfelelõ algoritmusokat is biztosítja, mint például a \verb|for_each|, a \verb'sort' vagy a \verb'find'. Az algoritmusok függvény sablonként vannak implementálva, és iterátorokon keresztül ``kommunikálnak'' a konténerek\-kel. Ez volt az elsõ, és sokáig az egyetlen, hasznos generikus könyvtár implementáció.
+
+Az STL megközelítésének számos elõnye van az \verb'Object'eket tároló kon\-ténerekkel szemben:
+\begin{itemize}
+	\item {\bfseries Típus biztonságos}: A fordító mindent elvégez helyettünk. Fordítási-idõben példányosítja a osztály-sablonokat és függvény-sablonokat, és a megfelelõ típus ellenõrzéseket is elvégzi. Tehát a hibalehetõségeket drasztikusan lecsökkenti.
+	\item {\bfseries Hatékony}: Elkerüli a fölösleges, futás-idejû, dinamikus típus konverziókat. A sablonok segítségével a fordító mindent a fordítási-idõben kiszámol, leellenõriz és behelyettesít -- minden a fordításkor eldõl semmit sem hagy futás-idõre.
+	\item {\bfseries Egyszerûbb bõvíteni és programozni}: akár új algoritmusokkal, akár új konténerekkel egyszerûen bõvíthetjük a könyvtárat, csak a megfelelõ iterátorokat kell implementálni.
+\end{itemize}
+Az utóbbiból az is adódik, hogy ha van $m$ típusunk és $n$ mûveletünk, akkor az objektum orientál hozzáállással ellentétben, ahol minden típus minden (virtuális) metódusát, azaz $O(n*m)$ függvényt kell implementálni, generikus programozással viszont elég $O(n+m)$, vagyis külön-külön implementálnunk kell a típusokat (és iterátoraikat) és külön az algoritmusokat, egymástól teljesen függetlenül.
+
+Ezek az elõnyöket, az STL oly módon képes megvalósítani, hogy egyálta\-lán nem megy a programozó rovására, vagyis nem kell bonyolultabb kódot írni, sõt, kevesebb kódot kell írni, ami kevesebb hibával jár. A C++ sablonok, fordításkor manipulálják a kódot, és egy csomó rutin munkát elvégeznek a programozó helyett. Ebben az esetben, ahelyett, hogy mi írjuk meg külön-külön az \verb'IntVector'-t és a \verb'FloatVectort', a sablonok ezt automatikusan megteszik helyettünk, ugyanis lényegében ugyan azt a kódot kell megírni, csak más típussal.
+
+Az STL megalkotásával le lettek fektetve a generikus programozás alapjai a C++-ban.

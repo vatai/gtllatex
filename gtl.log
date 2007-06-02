@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  1 JUN 2007 23:13
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.2.4)  2 JUN 2007 02:03
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -51,7 +51,7 @@ Package babel Info: Making ` an active character on input line 597.
 ))
 ("C:\Program Files\MiKTeX 2.5\tex\generic\oberdiek\ifpdf.sty"
 Package: ifpdf 2006/02/20 v1.4 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in pdf mode detected.
+Package ifpdf Info: pdfTeX in pdf mode not detected.
 )
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2000/07/18 v2.13 AMS math features
@@ -121,43 +121,10 @@ Package: amsfonts 2001/10/25 v2.2f
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 132.
 ))
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\color.sty"
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\00miktex\color.cfg"
-File: color.cfg 2005/12/29 v1.1 MiKTeX 'color' configuration
-)
-Package color Info: Driver file: pdftex.def on input line 130.
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\pdftex.def"
-File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
-\Gread@gobject=\count100
-))
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\graphicx.sty"
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\keyval.sty"
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks21
-)
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\graphics.sty"
-Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\trig.sty"
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-)
-("C:\Program Files\MiKTeX 2.5\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2005/12/29 v1.2 MiKTeX 'graphics' configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 90.
-)
-\Gin@req@height=\dimen113
-\Gin@req@width=\dimen114
-)
 ("C:\Program Files\MiKTeX 2.5\tex\latex\tools\verbatim.sty"
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks22
-\verbatim@line=\toks23
+\every@verbatim=\toks21
+\verbatim@line=\toks22
 \verbatim@in@stream=\read1
 ) (gtl.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
@@ -173,20 +140,9 @@ LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 
-("C:\Program Files\MiKTeX 2.5\tex\context\base\supp-pdf.tex"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count101
-\scratchdimen=\dimen115
-\scratchbox=\box28
-\nofMPsegments=\count102
-\nofMParguments=\count103
-\MPscratchCnt=\count104
-\MPscratchDim=\dimen116
-\MPnumerator=\count105
-\everyMPtoPDFconversion=\toks24
-) (01_bevezeto.tex) [1
+(01_bevezeto.tex) [1
 
-{psfonts.map}] (gtl.toc
+] (gtl.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 3.
 
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsa.fd"
@@ -207,26 +163,15 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
 
-[4]) (04_tmp.tex [5] [6] [7] [8]) (05_gtl.tex [9]) (06_mas.tex) (07_uj.tex)
-[10] (z_bib.tex) [11] (gtl.aux) ) 
+[4]) (04_tmp.tex [5] [6] [7] [8]) (05_gtl.tex [9] [10]) (06_mas.tex) (07_uj.tex
+) [11] [12] (z_bib.tex) [13] (gtl.aux) ) 
 Here is how much of TeX's memory you used:
- 2413 strings out of 95402
- 26497 string characters out of 1187029
- 83758 words of memory out of 1083337
- 5432 multiletter control sequences out of 60000
+ 1709 strings out of 95403
+ 17966 string characters out of 1187056
+ 71845 words of memory out of 1071424
+ 4781 multiletter control sequences out of 60000
  10936 words of font info for 41 fonts, out of 1000000 for 2000
  14 hyphenation exceptions out of 8191
- 27i,6n,24p,1298b,260s stack positions out of 5000i,500n,10000p,200000b,32768s
-PDF statistics:
- 62 PDF objects out of 300000
- 0 named destinations out of 300000
- 1 words of extra memory for PDF output out of 10000
-<C:/Program Files/MiKTeX 2.5/fonts/type1/blues
-ky/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti12.pfb><
-C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb><C:/Program Files
-/MiKTeX 2.5/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.5/font
-s/type1/bluesky/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/
-cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr12.pfb><C:
-/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr10.pfb><C:/Program Files/Mi
-KTeX 2.5/fonts/type1/bluesky/cm/cmbx10.pfb>
-Output written on gtl.pdf (11 pages, 105410 bytes).
+ 27i,5n,24p,1298b,254s stack positions out of 5000i,500n,10000p,200000b,32768s
+
+Output written on gtl.dvi (13 pages, 41584 bytes).

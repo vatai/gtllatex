@@ -4,7 +4,72 @@ Sokáig az STL volt az egyetlen a gyakorlatban hatékonyan alkalmazható generikus 
 A GTL az STL mintájára irták, viszont most a konténereket alakzatok (\verb"poly", \verb"regpoly", \verb"circle" ) helyettesítik, algoritmusokat pedig transzformációs mûveletek(\verb"move", \verb"rotate", \verb"mirror"). 
 
 \subsection{Alkalmazás és algoritmusok implementációja}
-Az két dimenziós alakzatokat a csúcsaikkal tudjuk leírni. A csúcsok pontok a síkban vagyis két dimenziós vektoroknak is felfoghatjuk õket. A GTL a csúcsokat \verb"vect<T>" típusú osztály-sablonokkal írja le, ahol a \verb"T" egy \verb"double"-val kompatibilis típus.
+
+Az két dimenziós alakzatokat a csúcsaikkal tudjuk leírni. A csúcsok pontok a síkban vagyis két dimenziós vektoroknak is felfoghatjuk õket. A GTL a csúcsokat \verb"vect<T>" típusú osztály-sablonokkal írja le, ahol a \verb"T" egy \verb"double"-val kompatibilis típus. A \verb"vect<T>"-ra definiálva vannak a szokásos mûveletek, mint például a konstruktor, értékadás, egyenlõség vizsgálat és kiíró operátor. Ezeken kívül definiálva van még az összeadása, a kivonása két \verb"vect<T>" között, \verb"T"-vel (skalárral) való szorzás és az origó körüli elforgatás \verb"double r" radiánnal. 
+
+\subsubsection{Alakzatok}
+A GTL három alakzatot definiál:
+\begin{enumerate}
+	\item Kör -- \verb"circle<T>"
+	\item Sokszög -- \verb"poly<T>"
+	\item Szabályos sokszög -- \verb"regpoly<T>"
+\end{enumerate}
+
+Ahogy az STL könyvtárban már tapasztaltuk, az iterátorok kulcsfontosságúak lesznek. Mindegyik alakzatban, egy-egy alosztályként definiálva vannak a 
+\begin{verbatim}
+  class input_iterator{ /* ... */ };
+  class output_iterator{ /* ... */ };
+\end{verbatim}
+iterátorok. Mindhárom alakzatnál az iterátorokat az
+\begin{verbatim}
+  input_iterator get_input_iter();
+  output_iterator get_output_iter();
+\end{verbatim}
+metódusokkal tudjuk lekérdezni. 
+
+Vizsgáljuk meg a kör implementációját részletesebben: 
+\begin{verbatim}
+template<typename T>
+class circle
+{
+public:
+  circle( const vect<T>& origo=0, const T sugar=0 ) 
+    : o(origo), r(sugar) {}
+
+  vect<T> o; // origo
+  T r;       // sugar
+  // ...
+\end{verbatim}
+A kört a \verb"vect<T> o;" csúccsal és a \verb"T r;" sugárral van definiálva. A konstruktor a megfelelõ módon inicializálja ezeket a változókat. Ha paraméter nélkül hívjuk meg a konstruktort, akkor egy $0$ sugarú kört kapunk az origón. Az iterátorokat ugorjuk egyenlõre át. Ez után következik pár segéd függvény:
+\begin{verbatim}
+template<typename T>
+class circle
+{
+public:
+  // ...
+  class input_iterator { /**/ }; 
+  class output_iterator { /**/ }; 
+
+  void set( vect<T>& origo, T sugar )
+  {
+    o = origo;
+    r = sugar;
+  }
+
+  input_iterator get_input_iter( int n=3 ) 
+  { return input_iterator( o, r, n ); }
+  
+  output_iterator get_output_iter() 
+  { return output_iterator(*this); }
+
+  input_iterator null_input_iter() 
+  { return input_iterator(); }
+};
+\end{verbatim}
+A \verb"set()" metódussal tudjuk a sugarat és az origót közvetlenül módosítani, továbbá a többi alakzattól eltérõen a kör input iterátor lekérdezõ metódusa paraméterezhetõ, ahol a paraméter egy pozitív egész, és az iterátor finomsá\-gát adja meg. Az iterátor finomsága alatt az kell érteni, hogy hány lépésben iterál végig a körön. Az alap értelmezett értéke ennek a paraméternek 3. Ekkor lényegében egy szabályos háromszög csúcsain lépked végig az iterátor, de ez bõven elég egy kör pontos meghatározásához.
+
+\subsubsection{Iterátorok}
+\subsubsection{Algoritmusok}
 
 \subsection{Elõnyök} 
 \subsection{Hátrányok}

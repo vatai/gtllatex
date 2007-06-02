@@ -15,18 +15,6 @@ A GTL három alakzatot definiál:
 	\item Szabályos sokszög -- \verb"regpoly<T>"
 \end{enumerate}
 
-Ahogy az STL könyvtárban már tapasztaltuk, az iterátorok kulcsfontosságúak lesznek. Mindegyik alakzatban, egy-egy alosztályként definiálva vannak a 
-\begin{verbatim}
-  class input_iterator{ /* ... */ };
-  class output_iterator{ /* ... */ };
-\end{verbatim}
-iterátorok. Mindhárom alakzatnál az iterátorokat az
-\begin{verbatim}
-  input_iterator get_input_iter();
-  output_iterator get_output_iter();
-\end{verbatim}
-metódusokkal tudjuk lekérdezni. 
-
 Vizsgáljuk meg a kör implementációját részletesebben: 
 \begin{verbatim}
 template<typename T>
@@ -42,8 +30,7 @@ public:
 \end{verbatim}
 A kört a \verb"vect<T> o;" csúccsal és a \verb"T r;" sugárral van reprezentálva. A konstruktor a megfelelõ módon inicializálja ezeket a változókat. Ha paraméter nélkül hívjuk meg a konstruktort, akkor egy $0$ sugarú kört kapunk az origón. Az iterátorokat ugorjuk egyenlõre át. Ez után következik pár segéd függvény:
 \begin{verbatim}
-template<typename T>
-class circle
+template<typename T> class circle
 {
 public:
   // ...
@@ -67,8 +54,7 @@ A \verb"set()" metódussal tudjuk a sugarat és az origót közvetlenül módosítani, 
 
 A szabályos sokszög implementációja se túl bonyolult (eltekintve az iterá\-torok implementációjától):
 \begin{verbatim}
-template<typename T>
-class reg_poly
+template<typename T> class reg_poly
 {
 public:
   vect<T> o; // origo
@@ -94,8 +80,55 @@ public:
 \end{verbatim}
 A szabályos sokszöget szinte ugyan úgy reprezentáljuk mint a kört. A közép\-pont most is a \verb"vect<T> o;". Mivel nem kerek az alakzat, ezért nem elég csak a sugarat megadni, hanem az egyik csúcsot is meg kell adni, ez most a \verb"vect<T> p;". Továbbá még a sokszög csúcsainak a számát is el kel tárolni az \verb"int n;" változóban. A konstruktor és a \verb"set()" hasonló mint a körnél. A szabályos sokszögnél értelmes a \verb"size()" függvény is, ami a csúcsok számát adja vissza, hasonlóan ahogy az STL konténerek az elemek számát. Az iterátor lekérdezések is hasonlóak mint a körnél.
 
-bla bla ....
+A (szabálytalan) sokszög kissé máskép van implementálva. 
+\begin{verbatim}
+template<typename T> class poly
+{
+public:
+  std::vector< vect<T> > v; // maguk a csucsok
+
+  poly() {}
+
+  // iterátorok és 
+  // iterátor lekérdezések
+  
+  void add( vect<T>& csucs )
+  { 
+    v.push_back( csucs ); 
+  }
+  
+  void del()
+  { 
+    if( size()>0 ) v.pop_back(); 
+  }
+
+  int size()
+  {
+    return v.size();
+  }
+
+};
+\end{verbatim}
+A sokszöget a \verb"vector< vect<T> > v;" változó reprezentálja, amelyben a sokszög csúcsait tároljuk. Csak alapértelmezett konstruktor van definiálva, az \verb"add()" metódussal bõvíthetjük a sokszöget egy új csúccsal, míg a \verb"del()" metódus törli az utolsó csúcsot. A \verb"size()" most is a csúcsok számát adja meg.
+
 \subsubsection{Iterátorok}
+Ahogy az STL könyvtárban már tapasztaltuk, az iterátorok kulcsfontos\-ságúak lesznek. Mindegyik alakzatban, egy-egy alosztályként definiálva vannak a 
+\begin{verbatim}
+  class input_iterator{ /* ... */ };
+  class output_iterator{ /* ... */ };
+\end{verbatim}
+iterátorok. Az elnevezés lehet, hogy nem épp a legszerencsésebb, ugyanis nem az alakzatok szempontjából, hanem az algoritmusok szempontjából nézve kapták ezeket a neveket. Az input iterátor az amelyik az algoritmusok inputját biztosítja, vagyis a konstans iterátor, ami az alakzat pillanatnyi állapotát tükrözi. Az output iterátor pedig az algoritmusok outputját biztosítják, vagyis amikor ezeket ezekre alkalmazzuk a \verb"*" operátort akkor egy \verb"vect<T>&" referencia szerû objektumot adnak vissza, amit módosítható.
+
+Érdemes megfigyelni, hogy mind három GTL alakzat, az STL konténerei\-vel szemben, nem lineáris hanem ciklikus. Ezért az iterátorok sem egy $[a,b)$ jellegû intervallumot járnak be, vagyis a \verb"begin()" és az \verb"end()" megegyezik. Nincs egy külön \verb"end()" iterátor, ami egy az utolsó elem utáni elemre mutat. Ebbõl adódóan az alakzatok iterátorait célszerûbb ciklikus iterátoroknak, vagy cirkulátornak (circulator \cite{cgal}) nevezni. 
+
+Mivel nem lineáris iterátorokról van szó, hanem ciklikusokról, és nincs külön eleje és vége az intervallumoknak mait bejárnak, elég csak egy-egy iterátor lekérdezõ metódus a különbözõ input és output iterátoroknak. Ezek a következõk:
+\begin{verbatim}
+  input_iterator get_input_iter();
+  output_iterator get_output_iter();
+\end{verbatim}
+
+
+
 \subsubsection{Algoritmusok}
 
 \subsection{Alkalmazás -- GTL Draw}

@@ -7,9 +7,12 @@
 \contentsline {subsection}{\numberline {2.2.}T\IeC {\'\i }pus aritmetika}{8}
 \contentsline {section}{\numberline {3.}GTL}{9}
 \contentsline {subsection}{\numberline {3.1.}Alkalmaz\'as \'es algoritmusok implement\'aci\'oja}{9}
-\contentsline {subsection}{\numberline {3.2.}El\H ony\"ok}{10}
-\contentsline {subsection}{\numberline {3.3.}H\'atr\'anyok}{10}
-\contentsline {section}{\numberline {4.}M\'as k\"onyvt\'arak}{10}
-\contentsline {subsection}{\numberline {4.1.}CGAL}{10}
-\contentsline {subsection}{\numberline {4.2.}Boost}{10}
-\contentsline {section}{\numberline {5.}\'Uj lehet\H os\'egek}{10}
+\contentsline {subsubsection}{\numberline {3.1.1.}Alakzatok}{10}
+\contentsline {subsubsection}{\numberline {3.1.2.}Iter\'atorok}{12}
+\contentsline {subsubsection}{\numberline {3.1.3.}Algoritmusok}{12}
+\contentsline {subsection}{\numberline {3.2.}El\H ony\"ok}{12}
+\contentsline {subsection}{\numberline {3.3.}H\'atr\'anyok}{12}
+\contentsline {section}{\numberline {4.}M\'as k\"onyvt\'arak}{12}
+\contentsline {subsection}{\numberline {4.1.}CGAL}{12}
+\contentsline {subsection}{\numberline {4.2.}Boost}{12}
+\contentsline {section}{\numberline {5.}\'Uj lehet\H os\'egek}{12}

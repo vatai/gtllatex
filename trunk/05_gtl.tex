@@ -40,21 +40,18 @@ public:
   T r;       // sugar
   // ...
 \end{verbatim}
-A kört a \verb"vect<T> o;" csúccsal és a \verb"T r;" sugárral van definiálva. A konstruktor a megfelelõ módon inicializálja ezeket a változókat. Ha paraméter nélkül hívjuk meg a konstruktort, akkor egy $0$ sugarú kört kapunk az origón. Az iterátorokat ugorjuk egyenlõre át. Ez után következik pár segéd függvény:
+A kört a \verb"vect<T> o;" csúccsal és a \verb"T r;" sugárral van reprezentálva. A konstruktor a megfelelõ módon inicializálja ezeket a változókat. Ha paraméter nélkül hívjuk meg a konstruktort, akkor egy $0$ sugarú kört kapunk az origón. Az iterátorokat ugorjuk egyenlõre át. Ez után következik pár segéd függvény:
 \begin{verbatim}
 template<typename T>
 class circle
 {
 public:
   // ...
-  class input_iterator { /**/ }; 
-  class output_iterator { /**/ }; 
+  class input_iterator  { /* ... */ }; 
+  class output_iterator { /* ... */ }; 
 
   void set( vect<T>& origo, T sugar )
-  {
-    o = origo;
-    r = sugar;
-  }
+  { o = origo; r = sugar; }
 
   input_iterator get_input_iter( int n=3 ) 
   { return input_iterator( o, r, n ); }
@@ -67,6 +64,35 @@ public:
 };
 \end{verbatim}
 A \verb"set()" metódussal tudjuk a sugarat és az origót közvetlenül módosítani, továbbá a többi alakzattól eltérõen a kör input iterátor lekérdezõ metódusa paraméterezhetõ, ahol a paraméter egy pozitív egész, és az iterátor finomsá\-gát adja meg. Az iterátor finomsága alatt az kell érteni, hogy hány lépésben iterál végig a körön. Az alap értelmezett értéke ennek a paraméternek 3. Ekkor lényegében egy szabályos háromszög csúcsain lépked végig az iterátor, de ez bõven elég egy kör pontos meghatározásához.
+
+A szabályos sokszög implementációja se túl bonyolult (eltekintve az iterá\-torok implementációjától):
+\begin{verbatim}
+template<typename T>
+class reg_poly
+{
+public:
+  vect<T> o; // origo
+  vect<T> p; // egy csucs
+  int n;     // csucsok szama
+
+  reg_poly( 
+    const vect<T>& origo=0, 
+    const vect<T>& csucs=0, 
+    int ncsucs=0 )
+  : o(origo), p(csucs), n(ncsucs) {}
+
+  // IO iterátorok
+
+  void set( vect<T>& origo, 
+    vect<T>& csucs, int ncsucs )
+  { o = origo; p = csucs; n = ncsucs; }
+
+  int size() const { return n; }
+  
+  // iterátor lekérdezések
+};
+\end{verbatim}
+A szabályos sokszöget szinte ugyan úgy reprezentáljuk mint a kört. A közép\-pont most is a \verb"vect<T> o;". Mivel nem kerek az alakzat, ezért nem elég csak a sugarat megadni, hanem az egyik csúcsot is meg kell adni, ez most a \verb"vect<T> p;". Továbbá még a sokszög csúcsainak a számát is el kel tárolni az \verb"int n;" változóban. A konstruktor és a \verb"set()" hasonló mint a körnél. A szabályos sokszögnél értelmes a \verb"size()" függvény is, ami a csúcsok számát adja vissza, hasonlóan ahogy az STL konténerek az elemek számát. Az iterátor lekérdezések is hasonlóak mint a körnél.
 
 \subsubsection{Iterátorok}
 \subsubsection{Algoritmusok}

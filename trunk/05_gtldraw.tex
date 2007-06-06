@@ -7,7 +7,7 @@ A GTL és ezzel a generikus programozás lehetõségeinek és korlátainak fel\-tárása
 
 \subsection{Az implementáció lényegesebb pontjai}
 
-A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt. A GTL és a generikus programozás vizsgálat érdekében, a következõ pontokat érdemes megemlíteni:
+A GTL és a generikus programozás vizsgálat érdekében, a GTL Draw implementációjának következõ pontjait érdemes megemlíteni:
 \begin{enumerate}
 	\item \verb"double" lebegõpontos típussal van példányosítva mind három GTL alakzat. Ezért a \verb"double"ra be van vezetve \verb"typedef"fel egy \verb"scalar" szinonima. További szinonimák vannak bevezetve a példányosított alakzatokra és a vektorokra amelyekben tárolódnak:
 	\begin{verbatim}
@@ -27,11 +27,11 @@ A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címe
 	\begin{itemize}
 	\item Ha alakzatot rajzolunk, akkor a megfelelõ vektor bõvül egy alakzattal.
 	\item Ha transzformációs mûveletet hajtunk végre, akkor elõször végig\-keresi a program mind három vektort, hogy volt-e találat (alakzatra kattintottunk-e). Ha találat volt akkor az alakzat címét, amelyre rá lett kattintva, a 
-	\verb"Circle* pc", \verb"Poly* pp" és \verb"RegPoly* rp" mutató közül, a megfelelõben tárolja és a másik kettõt nullára állítja. Majd mind
-három mutató közül a megfelelõben tegy mutatóban tárolja.
+	\verb"Circle* pc", \verb"Poly* pp" és \verb"RegPoly*" \verb"rp" mutató közül, a megfelelõben tárolja és a másik kettõt nullára állítja. Majd mind a három mutatóra (pontosabban a mutató által mutatott alakzatra) meghívódik a megfelelõ algoritmus feltéve, hogy a mutató nem nulla.
 	\end{itemize}
 \end{enumerate}
 
+A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt. 
 
 {\bfseries Fontos kikötés} volt, hogy a GTL Draw program megírásakor, a generikus programozás tanulmányozása érdekében, abszolút kikötés volt, kizáróla\-gosan sablonok, illetve sablon könyvtár használata. 
 

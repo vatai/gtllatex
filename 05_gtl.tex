@@ -128,58 +128,85 @@ Mivel nem lineáris iterátorokról van szó, hanem ciklikusakról, nincs külön eleje
   output_iterator get_output_iter();
 \end{verbatim}
 
-Mind három alakzatnak az iterátorai a következõ interfészt nyújtja.
-\begin{table}\centering\small
+% begin: TYPEDEF
+\begin{table}[t]\centering\small
 \begin{tabular}{|rl|rl|}
 \multicolumn{2}{c}{{\ttfamily input\_iterator}} &
-\multicolumn{2}{c}{{\ttfamily output\_iterator}} \\
-\hline
-név & érték/típus & név & érték/típus\\
-\hline
-iterator & \verb"input_iterator" & iterator & \verb"output_iterator" \\
-value\_type & \verb"vect<T>" & 	value\_type & \verb"vect<T>" \\
-reference\_type & \verb"vect<T>&" & reference\_type & \verb"vect<T>&" \\
-pointer\_type & \verb"vect<T>*" & pointer\_type & \verb"vect<T>*" \\
-& &	const\_reference\_type & \verb"const vect<T>&" \\
-\hline
-\end{tabular}
+\multicolumn{2}{c}{{\ttfamily output\_iterator}} \\ \hline
+név 			& érték/típus 			& név 				& érték/típus\\ \hline
+iterator 		& \verb"input_iterator" & iterator 			& \verb"output_iterator" \\
+value\_type 	& \verb"vect<T>" 		& 	value\_type 	& \verb"vect<T>" \\
+reference\_type & \verb"vect<T>&" 		& reference\_type 	& \verb"vect<T>&" \\
+pointer\_type 	& \verb"vect<T>*" 		& pointer\_type 	& \verb"vect<T>*" \\
+& &	const\_reference\_type & \verb"const vect<T>&" \\ \hline
+\end{tabular}\label{tab:typedef}
 \caption{Input és output iterátor typedef-ek}
-\label{tab:typedef}
-\end{table}
+\end{table} % end: TYPEDEF
 
-\begin{table}\centering\small
-\begin{tabular}{|l|l|}
-\hline
+% begin: OPERATOR
+\begin{table}[t]\centering\small
+\begin{tabular}{|l|l|} \hline
 \multicolumn{1}{|c|}{{\ttfamily input\_iterator}} & 
-	\multicolumn{1}{|c|}{{\ttfamily output\_iterator}} \\
-\hline\hline
+\multicolumn{1}{|c|}{{\ttfamily output\_iterator}} \\ \hline\hline
 \verb"bool       operator==" 		& \verb"bool      operator=="\\
-\verb"    (const iterator&)const" 	& \verb"    (const iterator&)const"\\
-\hline
+\verb"    (const iterator&)const" 	& \verb"    (const iterator&)const"\\ \hline
 \verb"bool       operator!=" 		& \verb"bool      operator!="\\
-\verb"    (const iterator&)const" 	& \verb"    (const iterator&)const"\\
-\hline
-\verb"value_type operator*()"		& \verb"iterator& operator*()" \\
-\hline
-\verb"iterator&  operator++()" 		& \verb"iterator& operator++()" \\
-\verb"iterator   operator++(int)" 	& \verb"iterator& operator++(int)" \\
-\hline
-\verb"iterator&  operator--()"		& \\
-\verb"iterator   operator--(int)" 	& \\
-\hline
-& \verb"iterator& operator="\\
-& \verb"    (const_reference_type)"\\
-\hline
-% \multicolumn{2}{|c|}{{\ttfamily bool operator==( const iterator\& x ) const}} \\
-% \multicolumn{2}{|c|}{{\ttfamily bool operator!=( const iterator\& x ) const}} \\
-% \hline
-\end{tabular}
+\verb"    (const iterator&)const" 	& \verb"    (const iterator&)const"\\ \hline
+\verb"value_type operator*()"		& \verb"iterator& operator*()" \\ \hline
+\verb"iterator&  operator++()" 		& \verb"iterator& operator++()" \\ \hline
+\verb"iterator   operator++(int)" 	& \verb"iterator& operator++(int)" \\ \hline
+\verb"iterator&  operator--()"		& \verb"iterator& operator="\\ \cline{1-1} 
+\verb"iterator   operator--(int)" 	& \verb"    (const_reference_type)"\\ \hline
+\end{tabular}\label{tab:operator}
 \caption{Input és output iterátor operátorok}
-\label{tab:operator}
-\end{table}
+\end{table} % end: OPERATOR
+
+Mind három alakzatnak az iterátorai közös interfésze megtalálható a \ref{tab:typedef} és \ref{tab:operator} táblázatokban. Ezen kívül minden alakzat input iterátora rendelkezik három konstruktorral:
+\begin{verbatim}
+  input_iterator( ... ); // alakzattól függö paraméterek
+  input_iterator(void);  // a null_iterator() adja vissza
+\end{verbatim} 
+Ezen kívül az input iterátorok biztosítanak még egy-egy
+\begin{verbatim}
+  null_iterator() { return input_iterator(); }
+\end{verbatim} 
+metódust is. A paraméter nélküli konstruktor egy érvénytelen objektum iterátorát hoz létre, azaza a \verb"null_iterator" egy ilyen iterátort ad vissza. Érvénytelen objektum alatt egy, valamilyen értelemben, null-objektumot ér\-tünk, mint például egy nulla sugarú kör vagy egy csúcs nélküli sokszög. Az elsõ (paraméteres) konstruktor, a megfelelõ alakzat csúcsain fog végig iterálni az \verb"operator++" és \verb"operator--" mûveletekkel és az \verb"operator*" operatorral lehet a csúcsot ábrázoló \verb"vect<T>" vektort lekérdezni. Az alakzat \verb"get_input_iter()" metódusa, az iterátornak amit létre hoz, át adja az összes szükséges adatott az alakzat leírásához. A körnél még a konstruktor paramétereként át lehet adni az iterátor ``finomságát'' is és ezek az iterátor adattagjaiban tárolódnak.
 
 \subsubsection{Algoritmusok}
+A GTL alakzataival végrehajtott algoritmusokat, a szerint, hogy módosítják-e az alakzatot, három csoportra oszthatjuk: 
+\begin{enumerate}
+	\item kizárólag ``olvasó'' algoritmusokra -- az \verb"input_iterator"t hasz\-nál\-ják
+	\item kizárolag ``író'' algoritmusok -- az \verb"output_iterator"ral módosítják az alakzatot
+	\item módosító algoritmusok -- ``író' és ``olvasó'' algoritmusok egyszerre
+\end{enumerate} A
+Ezek közül az elsõ és a harmadik csoport a hasznosabb és a GTL ilyen jellegû algoritmusokat valósít meg. A második csoport azért nem igazán alkalmazható, mert az \verb"output_iterator"ok lényegében nem olvashatóak, és olyan algoritmusok tartoznak ide, mint például egy \verb"T[]" típusú tömb vagy\verb"vect<T>" vektorból elõállít egy alakzatot. Ezeknek az algoritmusok már nem a GTL konténereivel dolgoznának, így túlmutatnak egy könyvtár hatáskörén.
+
+Példa kizárólag olvasó algoritmusra a GTL \verb"for_each" algoritmusa:
+\begin{verbatim}
+template<
+  typename input_iterator, 
+  typename Functor>
+void for_each( input_iterator mit, Functor func )
+  {
+    input_iterator save = mit;
+    func(*mit++);
+    while(mit!=save)
+    func(*mit++);
+  }
+\end{verbatim}
+A \verb"for_each" algoritmus nagyon jól szemlélteti, hogyan kell írni egy algoritmust a GTL-hez: elmentjük az iterátort (pl. \verb"save" változóba) és elõ\-re olvasással addig iterálunk amíg körbe nem érünk (vagyis \verb"mit!=save"). Egy függvény hívásnál nem szükséges talán, de ha nagyobb a \verb"while" ciklus törzse akkor a \verb"do...while()" konstrukció talán alkalmasabb az algoritmus(ok) elõre-olvasó jellegéhez. Tehát talán a következõ implementáció talán kissé jobb:
+\begin{verbatim}
+void for_each( input_iterator mit, Functor func )
+  {
+    input_iterator save = mit;
+    do { func(*mit++); }
+    while(mit!=save);
+  }
+\end{verbatim}
 
 \subsection{Alkalmazás -- GTL Draw}
-\subsubsection{Elõnyök} 
+
+\subsubsection{Elõnyök}
+
 \subsubsection{Hátrányok}
+

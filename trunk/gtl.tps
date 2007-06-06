@@ -148,7 +148,7 @@ cxCur=1083
 cxMin=10
 
 [Frame4_View0,0]
-Cursor.row=26
-Cursor.column=7
-TopSubLine=39
+Cursor.row=35
+Cursor.column=0
+TopSubLine=75
 

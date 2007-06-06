@@ -177,7 +177,7 @@ A GTL alakzataival végrehajtott algoritmusokat, a szerint, hogy módosítják-e az 
 \begin{enumerate}
 	\item kizárólag ``olvasó'' algoritmusokra -- az \verb"input_iterator"t hasz\-nál\-ják
 	\item kizárolag ``író'' algoritmusok -- az \verb"output_iterator"ral módosítják az alakzatot
-	\item módosító algoritmusok -- ``író' és ``olvasó'' algoritmusok egyszerre
+	\item módosító algoritmusok -- ``író'' és ``olvasó'' algoritmusok egyszerre
 \end{enumerate} A
 Ezek közül az elsõ és a harmadik csoport a hasznosabb és a GTL ilyen jellegû algoritmusokat valósít meg. A második csoport azért nem igazán alkalmazható, mert az \verb"output_iterator"ok lényegében nem olvashatóak, és olyan algoritmusok tartoznak ide, mint például egy \verb"T[]" típusú tömb vagy\verb"vect<T>" vektorból elõállít egy alakzatot. Ezeknek az algoritmusok már nem a GTL konténereivel dolgoznának, így túlmutatnak egy könyvtár hatáskörén.
 
@@ -203,6 +203,7 @@ void for_each( input_iterator mit, Functor func )
     while(mit!=save);
   }
 \end{verbatim}
+
 Egy csomó ehhez hasonló, nem módosító, algoritmus található a GTL könyv\-tárban: 
 \begin{description}
 \item[\ttfamily void for\_each(input\_iterator i,Functor func)]
@@ -217,6 +218,19 @@ Egy csomó ehhez hasonló, nem módosító, algoritmus található a GTL könyv\-tárban:
 	Kiszámolja az alakzat súlypontját.
 \end{description}
 
+Ezek az algoritmusok csak az alakzat input iterátorát használják. Tipikussan a következõ módon alkalmazhatjuk õket (például egy sokszög, a koordináta rendszer elsõ kvadránsába esõ csúcsainak a megszámlálása):
+\begin{verbatim}
+bool quad1( vect<float> v )
+{ return ( v.x >= 0 ) && ( v.y >= 0 ); }
+
+void f( reg_poly<float> rp )
+{
+  int cnt;
+  cnt = count( rp.get_input_iter(), quad1 );
+  std::cout << "csúcsok száma: " << cnt << std::endl;
+}
+\end{verbatim}
+
 Módosító algoritmusok azok, amelyek párhuzamosan léptetnek egy input és egy output iterátort és az egyiket olvassák és ennek alapján a másikat módosítják. A GTL a következõ módosító algoritmusokat biztosítja:
 \begin{description}
 \item[\ttfamily void move( ..., const\_reference\_type v )]
@@ -230,7 +244,37 @@ Módosító algoritmusok azok, amelyek párhuzamosan léptetnek egy input és egy outp
 \item[\ttfamily void clone( ... )]
 	At alakzat klónozása/másolása. \footnote{A {\ttfamily clone} egy speciális eset, ugyanis ezt nem \emph{egy} alakzat input és output iterátorára érdemes alkalmazni, hanem ha egy alakzatot egyenlõvé akarunk tenni a másikkal.}
 \end{description}
+A felsorolt függvény-sablonok paraméter listája nem teljes, ugyanis a \verb'...' helyén, az \verb"input_iterator mit, output_iterator" áll. Például a \verb"move" teljes függvény-sablon prototípusa:
+\begin{verbatim}
+  template<
+    typename input_iterator, 
+    typename output_iterator, 
+    typename T>
+  void move( 
+    input_iterator mit, 
+    output_iterator hova, 
+    const vect<T>& v )
+\end{verbatim}
 
+A módosító algoritmusokra talán a \verb"move" a legegyszerûbb és legszemléle\-te\-sebb példa:
+\begin{verbatim}
+  void move( 
+    input_iterator mit, 
+    output_iterator hova, 
+    const vect<T>& v )
+  {
+    input_iterator save = mit;
+    do{ *hova++ = (*mit++) + v; }
+    while( mit!=save )
+  }
+\end{verbatim}
+Ezeket a mûveleteket, tipikusan, a következõ módon lehet alkalmazni (most például a \verb"move" mûveletet egy körre):
+\begin{verbatim}
+  void f( circle<float> c, vec<float> v ) 
+  {
+    move( c.get_input_iter(), c.get_output_iter(), v );
+  }
+\end{verbatim}
 
 \subsection{Alkalmazás -- GTL Draw}
 

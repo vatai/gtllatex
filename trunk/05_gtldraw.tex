@@ -7,12 +7,17 @@ A GTL és ezzel a generikus programozás lehetõségeinek és korlátainak fel\-tárása
 
 \subsection{Az implementáció lényegesebb pontjai}
 
-A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt. A GTL és a generikus programozás vizsgálat érdekében, a következõket érdemes megemlíteni:
-\begin{itemize}
-	\item \verb"double" lebegõpontos számokkal volt példányosítva mind három GTL alakzat. Ezért a \verb"double"ra be van vezetve \verb"typedef"fel egy \verb"scalar" szinoníma.
-	\item A rajzlap tartalmát három \verb"std::vector<SH<scalar> >"\footnote{{\ttfamily SH} sorra {\ttfamily circle}, {\ttfamily poly} és {\ttfamily reg\_poly} .} típusú vektor tárolja, \verb"m_vCircle", \verb"m_vPoly" és \verb"m_vRegPoly" tárolja sorra a köröket, sokszögeket és a szabályos-sokszögeket.
-\item ole
-\end{itemize}
+A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt. A GTL és a generikus programozás vizsgálat érdekében, a következõ pontokat érdemes megemlíteni:
+\begin{enumerate}
+	\item \verb"double" lebegõpontos típussal van példányosítva mind három GTL alakzat. Ezért a \verb"double"ra be van vezetve \verb"typedef"fel egy \verb"scalar" szinonima.
+	\item A rajzlap tartalmát három \verb"std::vector<SH<scalar> >"\footnote{{\ttfamily SH} sorra {\ttfamily circle}, {\ttfamily poly} és {\ttfamily reg\_poly} .} típusú vektor tárolja, konkrétan \verb"m_vCircle", \verb"m_vPoly" és \verb"m_vRegPoly" változó tárolja sorra a köröket, sokszögeket és a szabályos-sokszögeket.
+	\item A program hat lényegesebb állapotban lehet: három állapot jellemzi az alakzat rajzolást, három állapot a három transzformációt jellemez.
+	\item A program lekezel minden eseményt. Ezek közül a kattintás a rajzlapra a legösszetettebb, az állapot függvényében, a következõ történik: 
+	\begin{itemize}
+	\item Ha alakzatot rajzolunk, akkor a megfelelõ vektor bõvül egy alakzattal.
+	\item Ha transzformációs mûveletet hajtunk végre, akkor elõször végigkeresi a program mind három 
+	\end{itemize}
+\end{enumerate}
 
 
 {\bfseries Fontos kikötés} volt, hogy a GTL Draw program megírásakor, a generikus programozás tanulmányozása érdekében, abszolút kikötés volt, kizáróla\-gosan sablonok, illetve sablon könyvtár használata. 

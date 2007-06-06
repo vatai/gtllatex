@@ -68,5 +68,10 @@ Az a kérdés merülhet fel bennünk, sõt fel is kell, hogy merüljön: \emph{Meg lehe
 
 \subsection{A polimorfizmus megkerülhetetlensége}
 
+\subsubsection{A közös típus problémája}
+Ez már korábban is felvetõdött és ez volt az elsõdleges probléma, egy alakzat bázisosztályszerû típus létezése. Ha egy ilyen létezne, akkor nem lenne semmi gond, és minden probléma megoldódna. Egyszerûen a már korábban említett módon, mindent egy alakzatokat tároló listába pakolnánk, és ennek a lista elemeit rajzolnánk ki. 
+
+Ezzel a megoldással viszont, azt elvárnánk, hogy ha a list egy eleme, vagyis egy alakzat valójában egy sokszög, akkor egyféleképpen viselkedjen, ha viszont egy kör akkor másképpen viselkedjen. Ez viszont virtuális függvény hívás, vagy azzal azzal ekvivalens. Ugyanis tegyük fel, hogy két alakzat van a rajzlapon. Az elsõrõl tudjuk, hogy egy szabályos sokszög, de a második pedig sokszög vagy kör, attól függõen, hogy mire kattintottunk, vagyis csak futás-idõben dõl el, és a fordító biztos nem tud róla. Ekkor ugyebár a listánk két elemû lesz, az elsõ elem egy szabályos sokszög, a második pedig vagy 
+
 \subsubsection{A composite típus problémája}
-Egy alternatív megoldás lenne, ha nem feltétlenül egy \verb"Shape*[]" tömbben tárolnánk az alakzatokat, hanem létezne egy olyan objektum amibe tetszõleges alakzatokat pakolhatnánk, például egy \verb"Group" vagy \verb"Composite" típusú objektum. Nem nehéz belátni, hogy ha létezne ilyen objektum, akkor egy csomó gondot megoldana (bár nem mindet)
+Egy alternatív megoldás lenne, ha nem feltétlenül egy \verb"Shape*[]" tömbben tárolnánk az alakzatokat, hanem létezne egy olyan objektum amibe tetszõleges alakzatokat pakolhatnánk, például egy \verb"Group" vagy \verb"Composite" típusú objektum. Nem nehéz belátni, hogy ha létezne ilyen objektum, akkor ényegében minden gondot megoldana. Ha valahogy össze tudnák forrasztani a különbözõ típusokat/alakzatokat, akkor ezeket egy vektorba tárolhatnánk, és az lenne az összetett típus, vagyis fordítva, ha létezne ilyen típus, akkor egy ilyen típusú objektumra hívnánk meg a függvényeinket. Például a kirajzolás szempontjából, a közös típus létezése 

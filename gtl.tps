@@ -4,8 +4,8 @@ Version=2
 
 [SessionInfo]
 ActiveTab=2
-FrameCount=5
-ActiveFrame=4
+FrameCount=4
+ActiveFrame=3
 
 [Frame0]
 Columns=1
@@ -97,8 +97,8 @@ TopSubLine=0
 [Frame3]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-4
@@ -111,44 +111,15 @@ Class=CLatexEdit
 Document=z_bib.tex
 
 [Frame3_Row0]
-cyCur=361
+cyCur=599
 cyMin=10
 
 [Frame3_Col0]
-cxCur=921
+cxCur=1083
 cxMin=10
 
 [Frame3_View0,0]
 Cursor.row=0
 Cursor.column=0
 TopSubLine=0
-
-[Frame4]
-Columns=1
-Rows=1
-Flags=2
-ShowCmd=3
-MinPos.x=-1
-MinPos.y=-1
-MaxPos.x=-4
-MaxPos.y=-30
-NormalPos.left=88
-NormalPos.top=116
-NormalPos.right=1038
-NormalPos.bottom=533
-Class=CLatexEdit
-Document=02_kialakul.tex
-
-[Frame4_Row0]
-cyCur=599
-cyMin=10
-
-[Frame4_Col0]
-cxCur=1083
-cxMin=10
-
-[Frame4_View0,0]
-Cursor.row=35
-Cursor.column=0
-TopSubLine=75
 

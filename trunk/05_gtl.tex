@@ -203,6 +203,34 @@ void for_each( input_iterator mit, Functor func )
     while(mit!=save);
   }
 \end{verbatim}
+Egy csomó ehhez hasonló, nem módosító, algoritmus található a GTL könyv\-tárban: 
+\begin{description}
+\item[\ttfamily void for\_each(input\_iterator i,Functor func)]
+	Az iterátor által bejárt alakzat összes csúcsára meghívja az \verb"f" functort. 
+\item[\ttfamily input\_iterator find( input\_iterator mit, Predicate pred )]
+	Arra a csúcsra mutató iterátort adja vissza, amelyre a \verb"pred" igaza.
+\item[\ttfamily int count(input\_iterator it, Predicate pred)]
+	Megszámolja, hogy az iterátor által bejárt csúcsok közül hányra teljesül \verb"pred".
+\item[\ttfamily bool isomorph(input\_iterator1 i1, input\_iterator2 i2)]
+	Két alakzat egyenlõ-e.
+\item[\ttfamily value\_type weight\_point( input\_iterator mit )]
+	Kiszámolja az alakzat súlypontját.
+\end{description}
+
+Módosító algoritmusok azok, amelyek párhuzamosan léptetnek egy input és egy output iterátort és az egyiket olvassák és ennek alapján a másikat módosítják. A GTL a következõ módosító algoritmusokat biztosítja:
+\begin{description}
+\item[\ttfamily void move( ..., const\_reference\_type v )]
+	Az alakzat eltolása \verb"v" vektorral.
+\item[\ttfamily void mirror( ..., const\_reference\_type v )]
+	A \verb"v" ponton áthaladó füg\-gõ\-leges tengelyre való tükrözés.
+\item[\ttfamily void rotate( ..., double rad )]
+	At alakzat elforgatása az origó körül \verb"rad" fokkal.
+\item[\ttfamily void inplace\_rotate( ..., double rad )]
+	At alakzat elforgatása a súly\-pontja körül, \verb"rad" fokkal.
+\item[\ttfamily void clone( ... )]
+	At alakzat klónozása/másolása. \footnote{A {\ttfamily clone} egy speciális eset, ugyanis ezt nem \emph{egy} alakzat input és output iterátorára érdemes alkalmazni, hanem ha egy alakzatot egyenlõvé akarunk tenni a másikkal.}
+\end{description}
+
 
 \subsection{Alkalmazás -- GTL Draw}
 

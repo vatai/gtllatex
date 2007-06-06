@@ -11,6 +11,7 @@ A GTL és a generikus programozás vizsgálat érdekében, a GTL Draw implementációjá
 \begin{enumerate}
 	\item \verb"double" lebegõpontos típussal van példányosítva mind három GTL alakzat. Ezért a \verb"double"ra be van vezetve \verb"typedef"fel egy \verb"scalar" szinonima. További szinonimák vannak bevezetve a példányosított alakzatokra és a vektorokra amelyekben tárolódnak:
 	\begin{verbatim}
+	typedef double scalar;
 	typedef gtl::vect<scalar> Vect;
 
 	typedef gtl::circle<scalar>		Circle;
@@ -62,3 +63,10 @@ Az viszont meg kell jegyezni, hogy igaz, hogy háromszor kellet meghívni, például
 Ahogy már korábban is meg lett említve, a fõ hátrány az, hogy a sablonok által generált osztályok teljesen függetlenek egymástól. Nincs közös õsosztályuk, és ezért nem lehet egyszerre, úgymond ``egy kalap alatt'' kezelni õket. Hiányzik az a lehetõség, hogy például egy \verb"list<Shape*>" listában tároljuk õket. Ez ahhoz vezet, hogy a három különbözõ típushoz, három különbözõ változóra van szükség. 
 
 A program írásának legkényelmetlenebb része volt a kiválasztott alakzat elmentése. Ugyanis nem volt elég csak azt elmenteni, hányadik alakzat a tömbben, hanem azt is ki kell valahogy találni, hogy melyik tömbben. Ezt persze csak úgy lehet, hogy mind a három tömböt végig kell nézni elõtte. Utána meg három mutató közül kell kiválasztani azt, hogy melyik az érvényes. 
+
+Az a kérdés merülhet fel bennünk, sõt fel is kell, hogy merüljön: \emph{Meg lehet-e ezt a problémát oldani generikus programozással, vagyis sablon meta-programozással?} A válasz erre egyáltalán nem triviális és azt fogjuk belátni, hogy a válasz erre a kérdésre nemleges.
+
+\subsection{A polimorfizmus megkerülhetetlensége}
+
+\subsubsection{A composite típus problémája}
+Egy alternatív megoldás lenne, ha nem feltétlenül egy \verb"Shape*[]" tömbben tárolnánk az alakzatokat, hanem létezne egy olyan objektum amibe tetszõleges alakzatokat pakolhatnánk, például egy \verb"Group" vagy \verb"Composite" típusú objektum. Nem nehéz belátni, hogy ha létezne ilyen objektum, akkor egy csomó gondot megoldana (bár nem mindet)

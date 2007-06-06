@@ -117,17 +117,37 @@ Ahogy az STL könyvtárban már tapasztaltuk, az iterátorok kulcsfontos\-ságúak les
   class input_iterator{ /* ... */ };
   class output_iterator{ /* ... */ };
 \end{verbatim}
-iterátorok. Az elnevezés lehet, hogy nem épp a legszerencsésebb, ugyanis nem az alakzatok szempontjából, hanem az algoritmusok szempontjából nézve kapták ezeket a neveket. Az input iterátor az amelyik az algoritmusok inputját biztosítja, vagyis a konstans iterátor, ami az alakzat pillanatnyi állapotát tükrözi. Az output iterátor pedig az algoritmusok outputját biztosítják, vagyis amikor ezeket ezekre alkalmazzuk a \verb"*" operátort akkor egy \verb"vect<T>&" referencia szerû objektumot adnak vissza, amit módosítható.
+iterátorok. Az elnevezés lehet, hogy nem épp a legszerencsésebb, ugyanis nem az alakzatok szempontjából, hanem az algoritmusok szempontjából nézve kapták ezeket a neveket. Az input iterátor az amelyik az algoritmusok inputját biztosítja, vagyis a ``konstans'' iterátor, ami az alakzat pillanatnyi állapotát tükrözi. Az output iterátor pedig az algoritmusok outputját biztosítják, vagyis amikor ezeket ezekre alkalmazzuk a \verb"*" operátort akkor egy \verb"vect<T>&" referencia szerû objektumot adnak vissza, amit módosítható.
 
-Érdemes megfigyelni, hogy mind három GTL alakzat, az STL konténerei\-vel szemben, nem lineáris hanem ciklikus. Ezért az iterátorok sem egy $[a,b)$ jellegû intervallumot járnak be, vagyis a \verb"begin()" és az \verb"end()" megegyezik. Nincs egy külön \verb"end()" iterátor, ami egy az utolsó elem utáni elemre mutat. Ebbõl adódóan az alakzatok iterátorait célszerûbb ciklikus iterátoroknak, vagy cirkulátornak (circulator \cite{cgal}) nevezni. 
+Érdemes megfigyelni, hogy mind három GTL alakzat, az STL konténerei\-vel szemben, nem lineáris hanem ciklikus. Ezért az iterátorok nem egy $[a,b)$ jellegû intervallumot járnak be, hanem körbejárják az elem csúcsait, és logikus, hogy az utolsó csúcs után, újra az elsõre lépnek. Ebbõl adódóan az alakzatok iterátorait célszerûbb ciklikus iterátoroknak, vagy cirkulátornak (circulator \cite{cgal}) nevezni. 
 
-Mivel nem lineáris iterátorokról van szó, hanem ciklikusokról, és nincs külön eleje és vége az intervallumoknak mait bejárnak, elég csak egy-egy iterátor lekérdezõ metódus a különbözõ input és output iterátoroknak. Ezek a következõk:
+
+Mivel nem lineáris iterátorokról van szó, hanem ciklikusakról, nincs külön eleje és vége az intervallumoknak amit bejárnak, hanem a \verb"begin()" és az \verb"end()" megegyezik. Ez miatt elég csak egy-egy metódus amelyik az input és output iterátort tudja lekérdezni. Ezek a következõk:
 \begin{verbatim}
   input_iterator get_input_iter();
   output_iterator get_output_iter();
 \end{verbatim}
 
-
+Mind három alakzatnak az iterátorai a következõ interfészt nyújtja.
+\begin{table}\begin{tabular}{|rl|rl|}
+\multicolumn{4}{c}{{\ttfamily typedef}ek} \\
+\multicolumn{2}{c}{{\ttfamily input\_iterator}} &
+\multicolumn{2}{c}{{\ttfamily output\_iterator}} \\
+\hline
+név & érték/típus & név & érték/típus\\
+\hline
+\verb"iterator" & \verb"input_iterator" & 
+	\verb"iterator" & \verb"output_iterator" \\
+\verb"value_type" & \verb"vect<T>" & 
+	\verb"value_type" & \verb"vect<T>" \\
+\verb"reference_type" & \verb"vect<T>&" & 
+	\verb"reference_type" & \verb"vect<T>&" \\
+\verb"pointer_type" & \verb"vect<T>*" & 
+	\verb"pointer_type" & \verb"vect<T>*" \\
+& &
+	\verb"const_reference_type" & \verb"const vect<T>&" \\
+\hline
+\end{tabular}\end{table}
 
 \subsubsection{Algoritmusok}
 

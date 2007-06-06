@@ -9,13 +9,26 @@ A GTL és ezzel a generikus programozás lehetõségeinek és korlátainak fel\-tárása
 
 A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt. A GTL és a generikus programozás vizsgálat érdekében, a következõ pontokat érdemes megemlíteni:
 \begin{enumerate}
-	\item \verb"double" lebegõpontos típussal van példányosítva mind három GTL alakzat. Ezért a \verb"double"ra be van vezetve \verb"typedef"fel egy \verb"scalar" szinonima.
-	\item A rajzlap tartalmát három \verb"std::vector<SH<scalar> >"\footnote{{\ttfamily SH} sorra {\ttfamily circle}, {\ttfamily poly} és {\ttfamily reg\_poly} .} típusú vektor tárolja, konkrétan \verb"m_vCircle", \verb"m_vPoly" és \verb"m_vRegPoly" változó tárolja sorra a köröket, sokszögeket és a szabályos-sokszögeket.
-	\item A program hat lényegesebb állapotban lehet: három állapot jellemzi az alakzat rajzolást, három állapot a három transzformációt jellemez.
+	\item \verb"double" lebegõpontos típussal van példányosítva mind három GTL alakzat. Ezért a \verb"double"ra be van vezetve \verb"typedef"fel egy \verb"scalar" szinonima. További szinonimák vannak bevezetve a példányosított alakzatokra és a vektorokra amelyekben tárolódnak:
+	\begin{verbatim}
+	typedef gtl::vect<scalar> Vect;
+
+	typedef gtl::circle<scalar>		Circle;
+	typedef gtl::poly<scalar>		Poly;
+	typedef gtl::reg_poly<scalar>	RegPoly;
+
+	typedef std::vector<Circle>		vCircle;
+	typedef std::vector<Poly>		vPoly;
+	typedef std::vector<RegPoly>	vRegPoly;
+	\end{verbatim}
+	\item A rajzlap tartalmát három vektor tárolja. Sorra \verb"vCircle", \verb"vPoly" és \verb"vRegPoly" típusú \verb"m_vCircle", \verb"m_vPoly" és \verb"m_vRegPoly" vektorok tárolja a megfelelõ alakzatot.
+	\item A program hat lényegesebb állapotban lehet: három állapot jellemzi a három alakzat rajzolását, három másik állapot pedig a három transzformáció végrehajtását.
 	\item A program lekezel minden eseményt. Ezek közül a kattintás a rajzlapra a legösszetettebb, az állapot függvényében, a következõ történik: 
 	\begin{itemize}
 	\item Ha alakzatot rajzolunk, akkor a megfelelõ vektor bõvül egy alakzattal.
-	\item Ha transzformációs mûveletet hajtunk végre, akkor elõször végigkeresi a program mind három 
+	\item Ha transzformációs mûveletet hajtunk végre, akkor elõször végig\-keresi a program mind három vektort, hogy volt-e találat (alakzatra kattintottunk-e). Ha találat volt akkor az alakzat címét, amelyre rá lett kattintva, a 
+	\verb"Circle* pc", \verb"Poly* pp" és \verb"RegPoly* rp" mutató közül, a megfelelõben tárolja és a másik kettõt nullára állítja. Majd mind
+három mutató közül a megfelelõben tegy mutatóban tárolja.
 	\end{itemize}
 \end{enumerate}
 

@@ -10,11 +10,11 @@
 \contentsline {subsubsection}{\numberline {3.1.1.}Alakzatok}{10}
 \contentsline {subsubsection}{\numberline {3.1.2.}Iter\'atorok}{13}
 \contentsline {subsubsection}{\numberline {3.1.3.}Algoritmusok}{14}
-\contentsline {subsection}{\numberline {3.2.}Alkalmaz\'as -- GTL Draw}{16}
-\contentsline {subsubsection}{\numberline {3.2.1.}El\H ony\"ok}{16}
-\contentsline {subsubsection}{\numberline {3.2.2.}H\'atr\'anyok}{16}
-\contentsline {section}{\numberline {4.}M\'as k\"onyvt\'arak}{16}
-\contentsline {subsection}{\numberline {4.1.}CGAL}{16}
-\contentsline {subsection}{\numberline {4.2.}VTL}{16}
-\contentsline {subsection}{\numberline {4.3.}Boost}{16}
-\contentsline {section}{\numberline {5.}\'Uj lehet\H os\'egek}{16}
+\contentsline {subsection}{\numberline {3.2.}Alkalmaz\'as -- GTL Draw}{17}
+\contentsline {subsubsection}{\numberline {3.2.1.}El\H ony\"ok}{17}
+\contentsline {subsubsection}{\numberline {3.2.2.}H\'atr\'anyok}{17}
+\contentsline {section}{\numberline {4.}M\'as k\"onyvt\'arak}{17}
+\contentsline {subsection}{\numberline {4.1.}CGAL}{17}
+\contentsline {subsection}{\numberline {4.2.}VTL}{17}
+\contentsline {subsection}{\numberline {4.3.}Boost}{17}
+\contentsline {section}{\numberline {5.}\'Uj lehet\H os\'egek}{17}

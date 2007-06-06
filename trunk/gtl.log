@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  6 JUN 2007 23:11
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  6 JUN 2007 23:37
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -238,13 +238,19 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 217.
  [16] [17])
-(05_gtldraw.tex [18] [19] [20]) (06_mas.tex
-Overfull \hbox (4.33896pt too wide) in paragraph at lines 72--1
+(05_gtldraw.tex [18] [19] [20] [21]) (06_mas.tex
+Overfull \hbox (4.33896pt too wide) in paragraph at lines 77--1
 \OT1/cmr/m/n/12 tarolnank az alak-za-to-kat, ha-nem letezne egy olyan ob-jek
 -tum amibe tetsz}oleges
  []
 
-[21]) (07_uj.tex) [22] (z_bib.tex)
+
+Overfull \hbox (0.43993pt too wide) in paragraph at lines 77--1
+\OT1/cmr/m/n/12 min-den gon-dot meg-ol-dana. Ha va-la-hogy ossze tudnak for-r
+asz-tani a kulonboz}o
+ []
+
+) (07_uj.tex) [22] (z_bib.tex)
 \tf@thm=\write4
  [23] [24] (gtl.aux) ) 
 Here is how much of TeX's memory you used:
@@ -270,4 +276,4 @@ nts/type1/bluesky/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky
 /cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><
 C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr17.pfb><C:/Program Files/
 MiKTeX 2.5/fonts/type1/bluesky/cm/cmr12.pfb>
-Output written on gtl.pdf (25 pages, 192802 bytes).
+Output written on gtl.pdf (25 pages, 194262 bytes).

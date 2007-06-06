@@ -26,25 +26,39 @@ A GTL és a generikus programozás vizsgálat érdekében, a GTL Draw implementációjá
 	\item A program lekezel minden eseményt. Ezek közül a kattintás a rajzlapra a legösszetettebb, az állapot függvényében, a következõ történik: 
 	\begin{itemize}
 	\item Ha alakzatot rajzolunk, akkor a megfelelõ vektor bõvül egy alakzattal.
-	\item Ha transzformációs mûveletet hajtunk végre, akkor elõször végig\-keresi a program mind három vektort, hogy volt-e találat (alakzatra kattintottunk-e). Ha találat volt akkor az alakzat címét, amelyre rá lett kattintva, a 
-	\verb"Circle* pc", \verb"Poly* pp" és \verb"RegPoly*" \verb"rp" mutató közül, a megfelelõben tárolja és a másik kettõt nullára állítja. Majd mind a három mutatóra (pontosabban a mutató által mutatott alakzatra) meghívódik a megfelelõ algoritmus feltéve, hogy a mutató nem nulla.
+	\item Ha transzformációs mûveletet hajtunk végre, akkor elõször végig\-keresi a program mind három vektort, hogy volt-e találat (alakzatra kattintottunk-e). Ha találat volt akkor az alakzat címét, amelyre rá lett kattintva, a \verb"Circle* pc", \verb"Poly* pp" és \verb"RegPoly*" \verb"rp" mutató közül, a megfelelõben tárolja és a másik kettõt nullára állítja. Majd mind a három mutatóra (pontosabban a mutató által mutatott alakzatra) meghívódik a megfelelõ algoritmus feltéve, hogy a mutató nem nulla.
 	\end{itemize}
+	\item Amikor szükség volt rá, három \verb"Draw" sablon függvény hívással kirajzolódtak a három vektorban tárolt alakzatok.
 \end{enumerate}
 
 A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt. 
 
-{\bfseries Fontos kikötés} volt, hogy a GTL Draw program megírásakor, a generikus programozás tanulmányozása érdekében, abszolút kikötés volt, kizáróla\-gosan sablonok, illetve sablon könyvtár használata. 
+{\bfseries Fontos megszorítás} volt, hogy a GTL Draw program megírásakor, a generikus programozás tanulmányozása érdekében, abszolút kikötés volt, kizáróla\-gosan sablonok, illetve sablon könyvtár használata. Azt tapasztaltam, a program írása során, hogy a (szigorúan) generikus programozás, vagyis ezen megszorítások és kikötések mellet, nem teljesen alkalmas egy ilyen rajzprogram megírásához. A generikus könyvtár nagyon nagy erõvel bír és óriási lehetõség rejlik benne, de dinamikus polimorfizmus nélkül komoly gondot okoz a különbözõ típusú alakzatok (konténerek) tárolása, ugyanis nem lehet õket egy közös konténerbe tenni. Megpróbálhatjuk elemezni a GTL Draw-ban alkalmazott generikus programozás elõnyeit, de ez elég ambivalens és vitatható eredményekhez vezet.
 
 \subsection{Elõnyök}
-A generikus programozásnak általános elõnyei:
+A generikus programozás egy olyan programozási paradigma, mely meta-programozásra épül, azaz fordítás idejû programozásra. Így amit el tudunk dönteni, ki tudunk szûrni fordítási idõben, azt egy jól megírt meta-program vagy generikus sablon könyvtár, el intézi nekünk, vagyis gondoskodik amirõl bír. A generikus programozásnak általános elõnyei:
 \begin{itemize}
 	\item Típus biztonság
 	\item Hatékonyság
 	\item Egyszerû kód
 \end{itemize}
 
-A generikus programozás egy olyan programozási paradigma, mely meta-programozásra épül, azaz fordítás idejû programozásra. Így amit el tudunk dönteni, ki tudunk szûrni fordítási idõben, azt egy jól megírt meta-program vagy generikus sablon könyvtár, el intézi nekünk, vagyis gondoskodik amirõl bír.
+\subsubsection{Típus biztonság}
+A típus biztonság egyértelmûen teljesül. Sehol se nincs a programban semmiféle típuskonverzió, minden objektumnak jól definiált típusa van. Ez\-eknek a típusokkal megfelelõen példányosítódnak a megfelelõ függvény sablonok. Ha nem jó típusú objektumot adunk át, akkor azt a fordító rögtön jelzi, és a program nem  fordul le. 
 
-A 
+Ez alól egy apró kivétel a mutatók használata, de azok csak lokális válto\-zóként szerepeltek és könnyû belegondolni hogyan lehet megkerülni a mutatók használatát. Viszont még így is csak az okozhatott hibát futás idejû hibát ha a null mutatóra hívjuk meg az algoritmust, de ezt könnyen ki lehet kerülni.
+
+\subsubsection{Hatékonyság}
+A hatékonyság abból adódik, hogy teljes mértékben el van kerülve az öröklõ\-dés, a virtuális függvények és a típus konverziók. A fordító program, például az alakzatok kirajzolásakor, fordítás-idõben létrehozza a megfelelõ kódot, ami futás idõben lefut. 
+
+Konkrét mérések nem voltak, részben azért is mert nem volt mihez. Attól függetlenül, hogy nincsenek, ``rejtett'' konverziók és ``rejtett'' virtuális függvények (azaz függvény hívások) a programban, és a program pontosan azt fogja csinálni amit le van kódolva, csak ``bõvebben kifejtve'', látszik, hogy pár dolog talán ront egy picit a teljesítményen. Itt újra fel lehet hozni a mutatókat, és a null mutató vizsgálatát.
+
+\subsubsection{Egyszerûbb kód}
+Ez a legvitathatóbb ``elõny'', ugyanis mivel az egyetlen rajzlap tartalmát három különbözõ vektorban kell tárolni, nem igazán mondható elegáns és egyszerû megoldásnak. Ez annak a következménye, hogy teljes mértékben mellõztük az öröklõdést és nincs egy õsosztályunk, ami tudna kör is, sokszög is és szabályos sokszög is lenni, és ilyen típusú vektorban vagy listában tárolhatnánk a rajzlap tartalmát. Ezért minden mûveletet, mint például a kirajzolás, a ``találat keresés'' (annak az alakzatnak a keresése, amelyre rákattintottunk), háromszor kell végrehajtani, különbözõ paraméterrel. A mutatós komplikációkat nem is említve.
+
+Az viszont meg kell jegyezni, hogy igaz, hogy háromszor kellet meghívni, például a \verb"Draw" függvényt, de csak egyszer kellet megírni és mindhárom alakzatra mûködött. Pontosabban kettõ \verb"Draw" függvény lett implementálva, ugyanis a kört, egy specializált \verb"Draw" függvény sablon rajzolta ki. Ezt is talán a hatékonyabb kódolásnak lehet tekinteni, mivel lehetõséget nyújtott, a megjelenítõ keretrendszer kör-rajzoló függvény alkalmazására, de ugyanakkor, az általános \verb"Draw" függvény sablon is ki rajzolta volna a kört\footnote{Az iterátor finomságán tudunk állítani, ha az input iterátor lekérdezõ függvényt egy paraméterrel látjuk el. Elég nagy finomság mellet, elvileg azonos eredményt érünk el.}, csak lassabban.
+
 \subsection{Hátrányok}
+Ahogy már korábban is meg lett említve, a fõ hátrány az, hogy a sablonok által generált osztályok teljesen függetlenek egymástól. Nincs közös õsosztályuk, és ezért nem lehet egyszerre, úgymond ``egy kalap alatt'' kezelni õket. Hiányzik az a lehetõség, hogy például egy \verb"list<Shape*>" listában tároljuk õket. Ez ahhoz vezet, hogy a három különbözõ típushoz, három különbözõ változóra van szükség. 
 
+A program írásának legkényelmetlenebb része volt a kiválasztott alakzat elmentése. Ugyanis nem volt elég csak azt elmenteni, hányadik alakzat a tömbben, hanem azt is ki kell valahogy találni, hogy melyik tömbben. Ezt persze csak úgy lehet, hogy mind a három tömböt végig kell nézni elõtte. Utána meg három mutató közül kell kiválasztani azt, hogy melyik az érvényes. 

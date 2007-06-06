@@ -3,17 +3,19 @@ Sokáig az STL volt az egyetlen a gyakorlatban hatékonyan alkalmazható generikus 
 
 A GTL az STL mintájára irták, viszont most a konténereket alakzatok (\verb"poly", \verb"regpoly", \verb"circle" ) helyettesítik, algoritmusokat pedig transzformációs mûveletek(\verb"move", \verb"rotate", \verb"mirror"). 
 
-\subsection{Alkalmazás és algoritmusok implementációja}
+% \subsection{Alkalmazás és algoritmusok implementációja}
 
 Az két dimenziós alakzatokat a csúcsaikkal tudjuk leírni. A csúcsok pontok a síkban vagyis két dimenziós vektoroknak is felfoghatjuk õket. A GTL a csúcsokat \verb"vect<T>" típusú osztály-sablonokkal írja le, ahol a \verb"T" egy \verb"double"-val kompatibilis típus. A \verb"vect<T>"-ra definiálva vannak a szokásos mûveletek, mint például a konstruktor, értékadás, egyenlõség vizsgálat és kiíró operátor. Ezeken kívül definiálva van még az összeadása, a kivonása két \verb"vect<T>" között, \verb"T"-vel (skalárral) való szorzás és az origó körüli elforgatás \verb"double r" radiánnal. 
 
-\subsubsection{Alakzatok}
+\subsection{Alakzatok}
 A GTL három alakzatot definiál:
 \begin{enumerate}
 	\item Kör -- \verb"circle<T>"
 	\item Sokszög -- \verb"poly<T>"
 	\item Szabályos sokszög -- \verb"regpoly<T>"
 \end{enumerate}
+
+\subsubsection{Kör -- circle}
 
 Vizsgáljuk meg a kör implementációját részletesebben: 
 \begin{verbatim}
@@ -52,6 +54,8 @@ public:
 \end{verbatim}
 A \verb"set()" metódussal tudjuk a sugarat és az origót közvetlenül módosítani, továbbá a többi alakzattól eltérõen a kör input iterátor lekérdezõ metódusa paraméterezhetõ, ahol a paraméter egy pozitív egész, és az iterátor finomsá\-gát adja meg. Az iterátor finomsága alatt az kell érteni, hogy hány lépésben iterál végig a körön. Az alap értelmezett értéke ennek a paraméternek 3. Ekkor lényegében egy szabályos háromszög csúcsain lépked végig az iterátor, de ez bõven elég egy kör pontos meghatározásához.
 
+\subsubsection{Szabályos sokszög -- reg\_poly}
+
 A szabályos sokszög implementációja se túl bonyolult (eltekintve az iterá\-torok implementációjától):
 \begin{verbatim}
 template<typename T> class reg_poly
@@ -79,6 +83,8 @@ public:
 };
 \end{verbatim}
 A szabályos sokszöget szinte ugyan úgy reprezentáljuk mint a kört. A közép\-pont most is a \verb"vect<T> o;". Mivel nem kerek az alakzat, ezért nem elég csak a sugarat megadni, hanem az egyik csúcsot is meg kell adni, ez most a \verb"vect<T> p;". Továbbá még a sokszög csúcsainak a számát is el kel tárolni az \verb"int n;" változóban. A konstruktor és a \verb"set()" hasonló mint a körnél. A szabályos sokszögnél értelmes a \verb"size()" függvény is, ami a csúcsok számát adja vissza, hasonlóan ahogy az STL konténerek az elemek számát. Az iterátor lekérdezések is hasonlóak mint a körnél.
+
+\subsubsection{Sokszög -- poly}
 
 A (szabálytalan) sokszög kissé máskép van implementálva. 
 \begin{verbatim}
@@ -111,7 +117,7 @@ public:
 \end{verbatim}
 A sokszöget a \verb"vector< vect<T> > v;" változó reprezentálja, amelyben a sokszög csúcsait tároljuk. Csak alapértelmezett konstruktor van definiálva, az \verb"add()" metódussal bõvíthetjük a sokszöget egy új csúccsal, míg a \verb"del()" metódus törli az utolsó csúcsot. A \verb"size()" most is a csúcsok számát adja meg.
 
-\subsubsection{Iterátorok}
+\subsection{Iterátorok}
 Ahogy az STL könyvtárban már tapasztaltuk, az iterátorok kulcsfontos\-ságúak lesznek. Mindegyik alakzatban, egy-egy alosztályként definiálva vannak a 
 \begin{verbatim}
   class input_iterator{ /* ... */ };
@@ -172,7 +178,7 @@ Ezen kívül az input iterátorok biztosítanak még egy-egy
 \end{verbatim} 
 metódust is. A paraméter nélküli konstruktor egy érvénytelen objektum iterátorát hoz létre, azaza a \verb"null_iterator" egy ilyen iterátort ad vissza. Érvénytelen objektum alatt egy, valamilyen értelemben, null-objektumot ér\-tünk, mint például egy nulla sugarú kör vagy egy csúcs nélküli sokszög. Az elsõ (paraméteres) konstruktor, a megfelelõ alakzat csúcsain fog végig iterálni az \verb"operator++" és \verb"operator--" mûveletekkel és az \verb"operator*" operatorral lehet a csúcsot ábrázoló \verb"vect<T>" vektort lekérdezni. Az alakzat \verb"get_input_iter()" metódusa, az iterátornak amit létre hoz, át adja az összes szükséges adatott az alakzat leírásához. A körnél még a konstruktor paramétereként át lehet adni az iterátor ``finomságát'' is és ezek az iterátor adattagjaiban tárolódnak.
 
-\subsubsection{Algoritmusok}
+\subsection{Algoritmusok}
 A GTL alakzataival végrehajtott algoritmusokat, a szerint, hogy módosítják-e az alakzatot, három csoportra oszthatjuk: 
 \begin{enumerate}
 	\item kizárólag ``olvasó'' algoritmusokra -- az \verb"input_iterator"t hasz\-nál\-ják
@@ -180,6 +186,8 @@ A GTL alakzataival végrehajtott algoritmusokat, a szerint, hogy módosítják-e az 
 	\item módosító algoritmusok -- ``író'' és ``olvasó'' algoritmusok egyszerre
 \end{enumerate} A
 Ezek közül az elsõ és a harmadik csoport a hasznosabb és a GTL ilyen jellegû algoritmusokat valósít meg. A második csoport azért nem igazán alkalmazható, mert az \verb"output_iterator"ok lényegében nem olvashatóak, és olyan algoritmusok tartoznak ide, mint például egy \verb"T[]" típusú tömb vagy\verb"vect<T>" vektorból elõállít egy alakzatot. Ezeknek az algoritmusok már nem a GTL konténereivel dolgoznának, így túlmutatnak egy könyvtár hatáskörén.
+
+\subsubsection{Nemmódisító algoritmusok}
 
 Példa kizárólag olvasó algoritmusra a GTL \verb"for_each" algoritmusa:
 \begin{verbatim}
@@ -231,6 +239,8 @@ void f( reg_poly<float> rp )
 }
 \end{verbatim}
 
+\subsubsection{Módisító algoritmusok}
+
 Módosító algoritmusok azok, amelyek párhuzamosan léptetnek egy input és egy output iterátort és az egyiket olvassák és ennek alapján a másikat módosítják. A GTL a következõ módosító algoritmusokat biztosítja:
 \begin{description}
 \item[\ttfamily void move( ..., const\_reference\_type v )]
@@ -277,18 +287,4 @@ Ezeket a mûveleteket, tipikusan, a következõ módon lehet alkalmazni (most példáu
 \end{verbatim}
 
 Az eddig felsorolt, alap algoritmusok mintájára, nagyon könnyel lehet tetszõleges algoritmus implementálni. Láthatjuk, hogy az STL-hez hasonló\-an, csak az iterátorokat, és az algoritmushoz szükséges információt (functort vagy elforgatás szögét), kell átadni. 
-
-\subsection{Alkalmazás -- GTL Draw}
-A GTL és ezzel a generikus programozás lehetõségeinek és korlátainak fel\-tárása céljából készült a \emph{GTL Draw} rajzoló program. A program a következõ funkciókat valósítja meg:
-\begin{description}
-	\item[Alakzatok rajzolása] Kör, sokszög és szabályos sokszögek rajzolása
-	\item[Alakzatok módosítása] A már megrajzolt alakzatok módosítása, vagyis az alakzatok eltolása, forgatása és tükrözése.
-\end{description}
-
-A programmal implementáció részletes leírása megtalálható az \cite{gtldraw} címen, a \emph{doc} könyvtár alatt.
-
-
-\subsubsection{Elõnyök}
-
-\subsubsection{Hátrányok}
 

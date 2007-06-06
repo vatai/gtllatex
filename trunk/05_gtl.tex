@@ -129,25 +129,54 @@ Mivel nem lineáris iterátorokról van szó, hanem ciklikusakról, nincs külön eleje
 \end{verbatim}
 
 Mind három alakzatnak az iterátorai a következõ interfészt nyújtja.
-\begin{table}\begin{tabular}{|rl|rl|}
-\multicolumn{4}{c}{{\ttfamily typedef}ek} \\
+\begin{table}\centering\small
+\begin{tabular}{|rl|rl|}
 \multicolumn{2}{c}{{\ttfamily input\_iterator}} &
 \multicolumn{2}{c}{{\ttfamily output\_iterator}} \\
 \hline
 név & érték/típus & név & érték/típus\\
 \hline
-\verb"iterator" & \verb"input_iterator" & 
-	\verb"iterator" & \verb"output_iterator" \\
-\verb"value_type" & \verb"vect<T>" & 
-	\verb"value_type" & \verb"vect<T>" \\
-\verb"reference_type" & \verb"vect<T>&" & 
-	\verb"reference_type" & \verb"vect<T>&" \\
-\verb"pointer_type" & \verb"vect<T>*" & 
-	\verb"pointer_type" & \verb"vect<T>*" \\
-& &
-	\verb"const_reference_type" & \verb"const vect<T>&" \\
+iterator & \verb"input_iterator" & iterator & \verb"output_iterator" \\
+value\_type & \verb"vect<T>" & 	value\_type & \verb"vect<T>" \\
+reference\_type & \verb"vect<T>&" & reference\_type & \verb"vect<T>&" \\
+pointer\_type & \verb"vect<T>*" & pointer\_type & \verb"vect<T>*" \\
+& &	const\_reference\_type & \verb"const vect<T>&" \\
 \hline
-\end{tabular}\end{table}
+\end{tabular}
+\caption{Input és output iterátor typedef-ek}
+\label{tab:typedef}
+\end{table}
+
+\begin{table}\centering\small
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{{\ttfamily input\_iterator}} & 
+	\multicolumn{1}{|c|}{{\ttfamily output\_iterator}} \\
+\hline\hline
+\verb"bool       operator==" 		& \verb"bool      operator=="\\
+\verb"    (const iterator&)const" 	& \verb"    (const iterator&)const"\\
+\hline
+\verb"bool       operator!=" 		& \verb"bool      operator!="\\
+\verb"    (const iterator&)const" 	& \verb"    (const iterator&)const"\\
+\hline
+\verb"value_type operator*()"		& \verb"iterator& operator*()" \\
+\hline
+\verb"iterator&  operator++()" 		& \verb"iterator& operator++()" \\
+\verb"iterator   operator++(int)" 	& \verb"iterator& operator++(int)" \\
+\hline
+\verb"iterator&  operator--()"		& \\
+\verb"iterator   operator--(int)" 	& \\
+\hline
+& \verb"iterator& operator="\\
+& \verb"    (const_reference_type)"\\
+\hline
+% \multicolumn{2}{|c|}{{\ttfamily bool operator==( const iterator\& x ) const}} \\
+% \multicolumn{2}{|c|}{{\ttfamily bool operator!=( const iterator\& x ) const}} \\
+% \hline
+\end{tabular}
+\caption{Input és output iterátor operátorok}
+\label{tab:operator}
+\end{table}
 
 \subsubsection{Algoritmusok}
 

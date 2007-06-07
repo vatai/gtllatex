@@ -217,7 +217,7 @@ Egy csomó ehhez hasonló, nem módosító, algoritmus található a GTL könyv\-tárban:
 \item[\ttfamily void for\_each(input\_iterator i,Functor func)]
 	Az iterátor által bejárt alakzat összes csúcsára meghívja az \verb"f" functort. 
 \item[\ttfamily input\_iterator find( input\_iterator mit, Predicate pred )]
-	Arra a csúcsra mutató iterátort adja vissza, amelyre a \verb"pred" igaza.
+	Arra a csúcsra mutató\footnote{A kifejezés arra utal, hogy ha az iterátorra alkalmazzuk a dereferencia operátort, akkor pont típusú objektumot ad vissza. Ez a szóhasználat késõbb is megtalálható a dolgozatban és az iterátorok imént említett viselkedésére utal.} iterátort adja vissza, amelyre a \verb"pred" igaza.
 \item[\ttfamily int count(input\_iterator it, Predicate pred)]
 	Megszámolja, hogy az iterátor által bejárt csúcsok közül hányra teljesül \verb"pred".
 \item[\ttfamily bool isomorph(input\_iterator1 i1, input\_iterator2 i2)]

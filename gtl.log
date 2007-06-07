@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  6 JUN 2007 23:37
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  7 JUN 2007 14:33
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -238,21 +238,10 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 217.
  [16] [17])
-(05_gtldraw.tex [18] [19] [20] [21]) (06_mas.tex
-Overfull \hbox (4.33896pt too wide) in paragraph at lines 77--1
-\OT1/cmr/m/n/12 tarolnank az alak-za-to-kat, ha-nem letezne egy olyan ob-jek
--tum amibe tetsz}oleges
- []
-
-
-Overfull \hbox (0.43993pt too wide) in paragraph at lines 77--1
-\OT1/cmr/m/n/12 min-den gon-dot meg-ol-dana. Ha va-la-hogy ossze tudnak for-r
-asz-tani a kulonboz}o
- []
-
-) (07_uj.tex) [22] (z_bib.tex)
+(05_gtldraw.tex [18] [19] [20] [21] [22]) (06_mas.tex) (07_uj.tex) [23]
+[24] (z_bib.tex)
 \tf@thm=\write4
- [23] [24] (gtl.aux) ) 
+ [25] [26] (gtl.aux) ) 
 Here is how much of TeX's memory you used:
  2659 strings out of 95402
  29644 string characters out of 1187029
@@ -262,18 +251,19 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  27i,9n,24p,1298b,287s stack positions out of 5000i,500n,10000p,200000b,32768s
 PDF statistics:
- 121 PDF objects out of 300000
+ 130 PDF objects out of 300000
  0 named destinations out of 300000
  6 words of extra memory for PDF output out of 10000
-<C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti1
-0.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program 
-Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.5
-/fonts/type1/bluesky/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/blues
-ky/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb
-><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Fil
-es/MiKTeX 2.5/fonts/type1/bluesky/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fo
-nts/type1/bluesky/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky
-/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><
-C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr17.pfb><C:/Program Files/
-MiKTeX 2.5/fonts/type1/bluesky/cm/cmr12.pfb>
-Output written on gtl.pdf (25 pages, 194262 bytes).
+<C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi1
+0.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti10.pfb><C:/Progra
+m Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.5
+/fonts/type1/bluesky/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/blu
+esky/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti12.pfb
+><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb><C:/Program Fil
+es/MiKTeX 2.5/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.5/fo
+nts/type1/bluesky/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesk
+y/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx10.pfb><
+C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><C:/Program Files
+/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.5/fonts
+/type1/bluesky/cm/cmr12.pfb>
+Output written on gtl.pdf (27 pages, 202031 bytes).

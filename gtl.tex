@@ -11,27 +11,27 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
-
+\usepackage{verbatim}
 \usepackage{ntheorem}
+
 \newtheorem{all}{Állítás}
 
-\ifpdf \usepackage[pdftex]{color,graphicx} \fi
-\usepackage{verbatim}
-
 \newcommand{\akkor}{\Rightarrow}
+
+\ifpdf \usepackage[pdftex]{color,graphicx} \fi
 
 \begin{document}
 \ifpdf \input{00_cim} \fi
 \input{01_bevezeto}
-\pagebreak
+	\pagebreak
 \tableofcontents 
-\pagebreak
+	\pagebreak
 \input{02_kialakul}
 \input{03_tmp}
 \input{04_gtl}
 \input{05_gtldraw}
-\input{06_mas}
-\input{07_uj}
-\pagebreak
+\input{06_alternativ}
+% \input{07_uj}
+	\pagebreak
 \input{z_bib}
 \end{document}

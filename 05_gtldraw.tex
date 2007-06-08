@@ -110,21 +110,77 @@ Ha jobban belegondolunk, ez egyrészt nem valósítható meg valamilyen öröklõdés né
 Vizsgáljuk meg elõtte a keresés (vagyis ``találat'' keresés, annak megálla\-pítása, hogy melyik alakzatra kattintottunk) szempontjából a két problémát. Egyrészt a polimorfizmus szigorúbbnak tûnhet, ugyanis ha megengedjük a dinamikus polimorfizmust, például öröklõdéssel, akkor tudunk csinálni alakzatra mutató mutatót és ebben tárolhatjuk azt az alakzatot a amelyre rá\-kattintottunk. Viszont az ha csak összetett alakzatunk van, és például ebben tároljuk a rajzlap tartalmát, akkor az még szigorított feltétel, hogy le tudjuk menteni, az összetett alakzat melyik alkotó elemét keressük. 
 
 \subsubsection{Iterátor konkatenáció}
-Már utalva volt rá, hogy lényegében nem is az alakzatokat kellene összefûzni hanem az iterátorokat. Az összetett alakzat kirajzolásánál is egy alapvetõ problémába ütközünk: hogyan fogjuk végig iterálni az alakzatot. Egyrészt, hogyan fogjuk tudni, hogy egy alakzat végére értünk, másrészt milyen típusú iterátorral fogunk iterálni, ugyanis a különbözõ konténerek iterátorai, külön\-bözõ típusúak, meg hat teljesen azonos is a viselkedésük. A teljesen azonos viselkedés pedig teljesül: feltéve, hogy azonos \verb"scalar" típussal példányosítottuk az alakzatainkat, akkor világos, hogy mindhárom alakzat iterátora egy-egy \verb"vect<scalar>" típusú pontra mutat.
+Már utalva volt rá, hogy lényegében nem is az alakzatokat kellene összefûzni hanem az iterátorokat. Az összetett alakzat kirajzolásánál is egy alapvetõ problémába ütközünk: hogyan fogjuk végig iterálni az alakzatot. Egyrészt, hogyan fogjuk tudni, hogy egy alakzat végére értünk, másrészt milyen típusú iterátorral fogunk iterálni, ugyanis a különbözõ konténerek iterátorai, külön\-bözõ típusúak, meg ha teljesen azonos is a szemantikájuk. A teljesen azonos szemantika pedig teljesül: feltéve, hogy azonos \verb"scalar" típussal példányosí\-tottuk az alakzatainkat, akkor világos, hogy mindhárom alakzat iterátora egy-egy \verb"vect<scalar>" típusú pontra mutat és ha léptetjük akkor körbejárja az alakzat csúcsait.
 
-%%%!!!!!!!  Már volt rá utalva, de valójában nem is az alakzatok polimorfizmusára lenne szükségünk, hanem az iterátorok polimorfizmusára! 
+Újra felmerül a kérdés, hogy objektum orientált vagy generikus megoldást kellene alkalmazni. Az öröklõdés újra az kézenfekvõ megoldás. Az iterátoroknak lenne egy közös bázis iterátor osztálya, virtuális metódusokkal, az alakzatok helyet az iterátorokat kellene csak tárolni, például az egyik tömbben az input iterátorokat, a másik tömbben az output iterátorokat. Legyen például a következõ a felépítés:
+\begin{verbatim}
+  template<typename T> struct 
+  input_iterator_base { 
+    typedef vect<T> value_type;
+    typedef input_iterator_base iterator;
+    // ...
+    virtual value_type operator*();
+    virtual iterator& operator++();
+  };
+  // output_iterator_base hasonlóan
 
-\subsubsection{Öröklõdés}
+  template<typename T> struct poly {
+    struct input_iterator  : input_iterator_base<T> ;
+    struct output_iterator : output_iterator_base<T> ;
+    // ...
+  };
+  // reg_poly és circle hasonlóan
+  
+\end{verbatim}
+Így bevezethetnénk az következõ változókat:
+\begin{verbatim}
+  class CGTLDrawDoc {
+    list<input_iterator_base*>  input_iterators;
+    list<output_iterátor_base*> output_iterators;
+    // ...
+  }
+\end{verbatim}
+De így már felesleges az algoritmusainkat függvény-sablonként implementál\-ni, ugyanis azt, hogy melyik paraméter \verb"input_iterator_base*" és melyik \verb"output_iterator_base*" típusú azt meg tudjuk már a program írásakor mondani. Így például a kirajzoló függvény lehetne a következõ:
+\begin{verbatim}
+  void Draw( list<input_iterator_base>& l, 
+    Graphics& g, 
+    Pen& p )
+  {
+    list<input_iterator_base>::iterator list_iter;
+    input_iterator_base iterator save, iter;
+    Point p1, p2;
 
-\subsubsection{Virtuális függvények}
+    for(list_iter=l.begin(); list_iter!=l.end; list_iter++)
+    {
+      save = iter = *list_iter;
+      p1 = p2 = ToPoint( *iter );
+
+      do {
+        iter++;
+        p2 = ToPoint( *iter );
+        g.DrawLine(&p, p1, p2);
+        p1 = p2;
+      } while(iter!=save);
+     }
+   }
+\end{verbatim}
+
+Ez már egy kompromisszumos megoldás, de túlzottan, sõt szinte kizárólag az öröklõdésre és az objektum orientált programozásra támaszkodik. Egyér\-telmû ennek a megközelítésnek a hátránya, mivel a iterátor léptetésnél és a \verb"*" operá\-tornál virtuális függvény hívás történik és ezek az alapvetõ mûveletek minden ciklusmagban meghívódnak. 
+
+Sablonokkal viszont nem lehet megoldani, kivéve ha nem szimuláljuk valahogy a polimorfizmus, például \verb"void*"-ra konvertálva és megfelelõ meta-programozással biztosítani, hogy mindig a megfelelõ függvény hívódjon meg. Egy ilyen jellegû megoldás lehetne a következõ: 
+\begin{verbatim}
+  template<typename T> stuct node {
+    poly<T>::input_iterator* poly_input_iter;
+    poly<T>::output_iterator* poly_output_iter;
+    // többi alakzatra hasonlóan
+    node* next;
+  }
+\end{verbatim}
+De ez nagyon csúnya megoldás lenne, mert igaz, hogy a tárolást megoldaná, és csak ezt a struktúrát kellene módosítani új típusú alakzat hozzáadásakor, de a \verb"node" kiolvasása okozna gondot, azaz egy bonyolult \verb"if/else" elágazást eredményezne, hogy polimorf szerû viselkedést produkáljon. Ez talán megoldható lenne meta-programozással, a \emph{Boost.Function}hoz hasonló módon.
 
 \subsubsection{Logikai elemzés}
+Végül gondoljuk át, általánosan, hogy mit is követelünk meg egy a GTLhez hasonló grafikus könyvtártól. 
 
+\subsubsection{Öröklõdés és virtuális függvények}
+Mivel már annyiszor szóba került, vizsgáljuk meg alapvetõen az objektum orientált programozás által nyújtott eszközök, vagyis az öröklõdés és a virtuális függvények elõnyeit és hátrányait a generikus programozás eszközeivel szemben. 
 
-% \subsubsection{A közös típus problémája}
-% Ez már korábban is felvetõdött és ez volt az elsõdleges probléma, egy alakzat bázisosztályszerû típus létezése. Ha egy ilyen létezne, akkor nem lenne semmi gond, és minden probléma megoldódna. Egyszerûen a már korábban említett módon, mindent egy alakzatokat tároló listába pakolnánk, és ennek a lista elemeit rajzolnánk ki. 
-
-% Ezzel a megoldással viszont, azt elvárnánk, hogy ha a list egy eleme, vagyis egy alakzat valójában egy sokszög, akkor egyféleképpen viselkedjen, ha viszont egy kör akkor másképpen viselkedjen. Ez viszont virtuális függvény hívás, vagy azzal azzal ekvivalens. Ugyanis tegyük fel, hogy két alakzat van a rajzlapon. Az elsõrõl tudjuk, hogy egy szabályos sokszög, de a második pedig sokszög vagy kör, attól függõen, hogy mire kattintottunk, vagyis csak futás-idõben dõl el, és a fordító biztos nem tud róla. Ekkor ugyebár a listánk két elemû lesz, az elsõ elem egy szabályos sokszög, a második pedig vagy 
-
-% \subsubsection{A composite típus problémája}
-% Egy alternatív megoldás lenne, ha nem feltétlenül egy \verb"Shape*[]" tömbben tárolnánk az alakzatokat, hanem létezne egy olyan objektum amibe tetszõleg\-es alakzatokat pakolhatnánk, például egy \verb"Group" vagy \verb"Composite" típusú objektum. Nem nehéz belátni, hogy ha létezne ilyen objektum, akkor ényegében minden gondot megoldana. Ha valahogy össze tudnák forrasztani a különbö\-zõ típusokat/alakzatokat, akkor ezeket egy vektorba tárolhatnánk, és az lenne az összetett típus, vagyis fordítva, ha létezne ilyen típus, akkor egy ilyen típusú objektumra hívnánk meg a függvényeinket. Például a kirajzolás szempontjából, a közös típus létezése 

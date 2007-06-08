@@ -1,10 +1,45 @@
 \section{Alternatív megoldások}
-Azt beláttuk, hogy kizárólag sablonokat használva nem tudjuk megvalósítani a dinamikus polimorfizmust és ezért nem is 
+Azt beláttuk, hogy kizárólag sablonokat használva nem tudjuk megvalósítani a dinamikus polimorfizmust és ezért nem is tudunk egy hatékony rajzoló programot ha csak ezekre az eszközökre támaszkodunk. Viszont ha gyengítenénk egy kicsit a feltételeinken és megengednénk az öröklõdést és a virtuális függ\-vényeket vagy egy ezzel ekvivalens mechanizmust, akkor egy kellõen hatékony és elegáns megoldás kapnánk. 
+
+A felmerült probléma nem egyedi és sok hasonló problémát már megpró\-báltak megoldani valamilyen módon. Ebbõl adódóan sok más generikus született és ezeket fogjuk megvizsgálni, mennyire lennének alkalmasak, hogy megoldják a GTL-el kapcsolatban felmerült problémát.
+
 \subsection{CGAL}
+Computational Geometry Algorithms Library -- röviden CGAL -- egy C++-ban írt geometriai algoritmusok könyvtára. Három fõ részre lehet bontani:
+\begin{itemize}
+	\item Az elsõ rész tartalmazza az úgynevezett \emph{Kernel}eket és amûveleteket amelyeket végre lehet rajtuk hajtani. A kernelek állandóméretû, módo\-síthatatlan alap objektumok, mint például pontok, egyenesek, egyenese stb. A kernelek paraméterezése határozza meg a szám\-testet amit a pontok koordinátáinak reprezentálására fogunk használni, továbbá megadható hogy 2, 3 vagy $n$ dimenzióban szeretnénk dolgozni és hogy Euklideszi vagy baricentrikus koordinátákkal dolgozunk. 
+	\item A második rész alapvetõ geometriai adatstruktúrából és algoritmusból áll. Ezeket az adatstruktúrákat, vagyis alakzatokat a megfelelõ kernelekkel, mint traits-ekkel lehet paraméterzeni, ezzel meghatározva azt, hogy milyen alap objektumokkal reprezentáljuk az alakzatokat és az interfész az alakzatok és az algoritmusok között. A CGAL nagyon gazdag geometriai és grafikában használt adatstruktúrát és algoritmust tartalmaz.
+	\item A CGAL harmadik része biztosítja a hatékony implementációt és más nem-geometriai funkcionalitást. Ebben a részben találhatók a CGAL STL kiterjesztések, nyelek (handle), ciklikus iterátorok (circulator), objektum generátorok, idõzítõk, I/O folyam operátorok, numerikus típusok támogatása, stb.
+\end{itemize}
+
+A CGAL már egy jól kifejlet geometriai könyvtár. Viszont nem teljesen oldja meg a polimorfizmus problémáját, ugyanis egy \verb"CGAL::Object" típusú objektum biztosítja a polimorf tárolását az objektumoknak. Két alap objektum metszete meghatározása nem egyértelmû, hogy mit ad vissza ezért az \verb"intersection" függvény polimorf visszatérési értékû kell, hogy legyen.
+\begin{verbatim}
+{
+  typedef Cartesian<double>  K;
+  typedef K::Point_2         Point_2;
+  typedef K::Segment_2       Segment_2;
+
+  Segment_2 segment_1, segment_2;
+
+  std::cin >> segment_1 >> segment_2;
+
+  Object obj = intersection(segment_1, segment_2);
+
+  if (const Point_2 *point = object_cast<Point_2>(&obj)) {
+      /* do something with *point */
+  } else if (const Segment_2 *segment = 
+             object_cast<Segment_2>(&obj)) {
+      /* do something with *segment*/
+  }
+
+  /*  there was no intersection */
+}
+\end{verbatim}
+
 \subsection{VTL}
+Már volt róla szó, hogy valójában nem is az alakzatok polimorfizmusára lenne szükségünk, hanem az iterátorok polimorfizmusa elég lenne.
+
 \subsection{Boost}
 
-\section{Új lehetõségek}
+\subsection{Típus törlés - any\_iterator}
 
-%%%!!!!!!!  Már volt rá utalva, de valójában nem is az alakzatok polimorfizmusára lenne szükségünk, hanem az iterátorok polimorfizmusára! 
 

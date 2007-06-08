@@ -176,11 +176,15 @@ Sablonokkal viszont nem lehet megoldani, kivéve ha nem szimuláljuk valahogy a po
     node* next;
   }
 \end{verbatim}
-De ez nagyon csúnya megoldás lenne, mert igaz, hogy a tárolást megoldaná, és csak ezt a struktúrát kellene módosítani új típusú alakzat hozzáadásakor, de a \verb"node" kiolvasása okozna gondot, azaz egy bonyolult \verb"if/else" elágazást eredményezne, hogy polimorf szerû viselkedést produkáljon. Ez talán megoldható lenne meta-programozással, a \emph{Boost.Function}hoz hasonló módon.
+De ez nagyon csúnya megoldás lenne, mert igaz, hogy a tárolást megoldaná, és csak ezt a struktúrát kellene módosítani új típusú alakzat hozzáadásakor, de a \verb"node" kiolvasása okozna gondot, azaz egy bonyolult \verb"if/else" elágazást eredményezne, hogy polimorf szerû viselkedést produkáljon. Ez talán megkerülhetõ lenne meta-programozással, a \emph{Boost.Function}hoz hasonló megol\-dással.
 
-\subsubsection{Logikai elemzés}
-Végül gondoljuk át, általánosan, hogy mit is követelünk meg egy a GTLhez hasonló grafikus könyvtártól. 
+\subsubsection{Konkluzió}
+Végül gondoljuk át, általánosan, hogy mit is követelünk meg a GTL grafikus könyvtártól. Elsõ sorban azt várjuk el, hogy az alakzatokat hatékonyan ábrázolja és hogy ezekhez az alakzatokhoz biztosítson megfelelõ transzfor\-mációkat és algoritmusokat, másrészt legyen könnyen bõvíthetõ az alakzatok készlete és az algoritmusok készlete is. Ezeket lényegében teljesíti is a GTL. 
 
-\subsubsection{Öröklõdés és virtuális függvények}
-Mivel már annyiszor szóba került, vizsgáljuk meg alapvetõen az objektum orientált programozás által nyújtott eszközök, vagyis az öröklõdés és a virtuális függvények elõnyeit és hátrányait a generikus programozás eszközeivel szemben. 
+Ami hiányzik belõle, az a lehetõség, hogy az alakzatokat közös konténerbe lehessen helyezni és ezt fordítás-idejû, statikus polimorfizmussal, amit a generikus programozás nyújt, nem lehet megoldani. Tegyük fel, ugyanis, hogy van egy olyan ``ügyes konténerünk'', ami el tudná tárolni az alakzatokat és statikus polimorfizmusra támaszkodik. Ez azt jelentené, hogy fordítás-idõben el tudja dönteni, hogy milyen alakzattal fog bõvülni. Ez viszont egy rajzoló programban megengedhetetlen, ugyanis a rajzoló programban, a felhasználó csak futás-idõben fogja megadni, hogy milyen alakzatokat fog rajzolni. Elég csak az elsõ elemét megfigyelni ennek az ``ügyes konténernek'', még ha valahogy, el is tudja tárolni az alakzatot, és vissza is tudja adni, akkor is egy \verb"if" elágazással le kell kezelni külön-külön mindegyik alakzat esetét, mivel az volt a feltevés, hogy az alakzatok csak statikusan polimorfak és nincs közös bázisosztályuk.
 
+Ha belegondolunk, világos, hogy dinamikus polimorfizmusra van szüksé\-günk. Az öröklõdés és a virtuális függvények pontosan azt a problémát oldják meg amivel szembesülünk. A virtuális függvények, abból a célból tervezték, hogy ha egy objektum típusának és viselkedésének mivoltát, el akarjuk halasztani futási-idõre, akkor ne kelljen bonyolult elágazás struktúrákat írni. 
+
+Ennek a döntésnek az elhalasztásának ára van. Programozásban, mindig amikor késõbbre halasztunk egy döntés, azt valamivel kompenzálni kell. Ha csak futás idõben dõl el, hogy
+
+Ha egy döntést, konkrétan azt, hogy milyen típusú objektum, milyen függvénye hívódik meg

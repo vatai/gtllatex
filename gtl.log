@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  8 JUN 2007 09:35
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  8 JUN 2007 10:32
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -249,7 +249,7 @@ Here is how much of TeX's memory you used:
  5654 multiletter control sequences out of 60000
  16111 words of font info for 63 fonts, out of 1000000 for 2000
  14 hyphenation exceptions out of 8191
- 27i,9n,24p,1298b,326s stack positions out of 5000i,500n,10000p,200000b,32768s
+ 27i,9n,24p,1346b,326s stack positions out of 5000i,500n,10000p,200000b,32768s
 PDF statistics:
  146 PDF objects out of 300000
  0 named destinations out of 300000
@@ -266,4 +266,4 @@ cmr10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><C:/Program Files/MiKT
 eX 2.5/fonts/type1/bluesky/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.5/fonts/type
 1/bluesky/cm/cmr12.pfb>
-Output written on gtl.pdf (32 pages, 220383 bytes).
+Output written on gtl.pdf (32 pages, 221567 bytes).

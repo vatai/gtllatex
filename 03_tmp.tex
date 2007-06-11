@@ -1,13 +1,10 @@
-\begin{description}
-	\item[] 
-\end{description}
 \section{Sablon mágia -- Template Metaprogramming}
-Ilyen sok problémát megoldani, ilyen hatékonyan szinte mágiának tûnhet. Sokáig annak is tûnt és ez arra ösztönzött pár C++ programozót, hogy kicsit jobban megvizsgálják a sablonok által nyújtott lehetõségeket. Így történt, hogy 1994-ben Erwin Unruh bemutatta a C++ szabvány bizottság elõtt az elsõ sablon-metaprogramot, amely, igaz nem fordult le, de viszont a hibaüzenetek prímszámok voltak. Felismervén a C++-ba beágyazott sablon-mechanizmus, mint (fordítás idejû) nyelv Turing-teljességét, megfogant a C++ sablon-metaprogramozás (template metaprogramming) fogalma. 
+Ilyen sok problémát megoldani, ilyen hatékonyan szinte varázslásnak tûnhet. Sokáig annak is tûnt és ez arra ösztönzött néhány C++ programozót, hogy kicsit jobban megvizsgálják a sablonok által nyújtott lehetõségeket. Így történt, hogy 1994-ben Erwin Unruh bemutatta a C++ szabvány bizottság elõtt az elsõ sablon-metaprogramot, amely igaz nem fordult le, viszont a hibaüzenetek prímszámok voltak. Felismervén a C++-ba beágyazott sablon-mechanizmus, mint (fordítás idejû) nyelv Turing-teljességét, megfogant a C++ sablon-metaprogramozás (template metaprogramming) fogalma. 
 
-A sablonok, pontosabban a sablon-metaprogramozás, a funkcionális nyelvekhez hasonló módon mûködik. A részben specializált sablonok, függvény hívásnak felelnek meg és a teljes specializációk pedig termek, vagyis konstansok. 
+A sablonok, pontosabban a sablon-metaprogramozás, a funkcionális nyelvekhez hasonló módon mûködik. A részben specializált sablonok, függvény hívásoknak felelnek meg és a teljes specializációk pedig termek, vagyis konstansok. 
 
-\subsection{Fordítás-idejû aritmetika}
-Ezt nagyon jól szemlélteti a következõ példa\cite{haladocpp}:
+\subsection{Fordítás-idejû numerikus aritmetika}
+Vegyük szemügyre a következõ példát\cite{haladocpp}:
 \begin{verbatim}
 // factorial.cpp
 #include <iostream>
@@ -18,7 +15,7 @@ template <unisgned long N> struct Factorial
 template <> struct Factorial<1>
 { enum { value = 1 }; };
 
-// example use
+// alkalmazva
 int main()
 {
     const int fact15 = Factorial<15>::value;
@@ -26,7 +23,8 @@ int main()
     return 0;
 }
 \end{verbatim}
-Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egy $N=15$-vel példányosított osztály-sablon, amelynek a \verb'value' tagja egyenlõ a \verb'Factorial<N-1>::value'-vel, azaz a példányosítás ``rekurzívan'' történik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre\-venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a $1307674368000$ literált kapja értékül. Vagyis nem írhatjuk a következõt:
+Mi is fog történni amikor a fordító lefordítja a programunkat? A \verb'fact15' egyenlõ egy $N=15$-vel példányosított osztály-sablon \verb"value" tagjával, ami $N$ szer \verb'Factorial<N-1>::value'-vel egyenõ, azaz a példányosítás ``rekurzí\-van'' történik, egész addig amíg a \verb'Factorial<1>'-nél nem terminál. Nagyon fontos észre\-venni, hogy ez mind fordítás idõben történik, és futás idõben a \verb'fact15' változó, már a $1307674368000$ literált kapja értékül. Vagyis nem írhatjuk a következõt:
+%%%% LITERÁL VAGY KONSTANS???????
 \begin{verbatim}
 int main()
 {
@@ -39,7 +37,7 @@ int main()
 \end{verbatim}
 ugyan is a fordító program nem találhatja ki, milyen számot fog a felhasználó bevinni.
 
-Természetesen jogos az észrevétel, hogy minek írjunk egy furcsa, eleve nehezen érthetõ és talán félrevezetõ \verb|Factorial| sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron is kiszámolhatjuk, hogy $15!=1307674368000$. Így a következõ program, ugyan azt tudja, csak sablon meta-programozás nélkül:
+Természetesen jogos az észrevétel, hogy minek írjunk egy furcsa, eleve nehezen érthetõ és talán félrevezetõ \verb|Factorial| sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron is kiszámolhatjuk, hogy $15!=1307674368000$. Tehát a következõ program, ugyan azt teszi, csak sablon meta-programozás nélkül:
 \begin{verbatim}
 int main()
 {
@@ -48,7 +46,7 @@ int main()
    return 0;
 }
 \end{verbatim}
-Hogy ezt a kérdést megvizsgáljunk,  vegyünk talán egy másik gyakorlatiasabb példát példát, ugyanis a faktoriális csak egy iskolapélda a rekurzív függvény hívás lehetõségének bemutatására sablon meta-programozásban. A következõ meta-program egy bináris alakban megadott szám értékét számolja ki:
+Erre a kérdésre, hogy válaszoljunk, vegyünk egy másik gyakorlatiasabb pél\-dát, ugyanis a faktoriális csak egy iskolapélda a rekurzív függvény hívás lehetõségének bemutatására sablon meta-programozásban. A következõ meta-program egy bináris alakban megadott szám értékét számolja ki:
 \begin{verbatim}
 template <unsigned long N> 
 struct binary
@@ -72,7 +70,7 @@ int main()
   return 0;
 }
 \end{verbatim}
-Talán ez a példa jobban szemlélteti a sablon meta-programozás lehetõségeit, ugyanis a \verb|binary| segítségével, nem kell kézzel, vagy futás-idõben számolgatni a bináris konstansokat, amire, ha például hardver közeli programot írunk, akkor lehet, hogy nem csak egyszer lesz szükségünk. Így nem is csak egy csomó számolást spóroltunk meg magunknak, hanem egy csomó hibát is kiszûrtünk. Ez lényegében a C++ kiterjesztésének is tekinthetõ, ugyanis a nyel már támogatta a hexadecimális és az oktális literálokat, most már a bináris literálokat is támogatja. Tehát 
+Talán ez a példa jobban szemlélteti a sablon meta-programozás lehetõségeit, ugyanis a \verb|binary| segítségével, nem kell kézzel, vagy futás-idõben számolgatni a bináris konstansokat, amire, ha például hardver közeli programot írunk, akkor lehet, hogy nem csak egyszer lesz szükségünk. Ezzel nem csak egy csomó számolást spóroltunk meg magunknak, hanem a lehetséges hibákat is kiszûrtük. Ez lényegében a C++ kiterjesztésének is tekinthetõ, ugyanis a nyelv már támogatta a hexadecimális és az oktális literálokat, most már a bináris literálokat is támogatja. Tehát a következõ egyenlõségek, mind igazak:
 \begin{verbatim}
   ( 42 == 052 && 
     052== 2A && 
@@ -80,11 +78,11 @@ Talán ez a példa jobban szemlélteti a sablon meta-programozás lehetõségeit, ugya
 \end{verbatim}
 
 \subsection{Típus aritmetika}
-Az elképzelhetõ, hogy a \verb'binary' meta-programnak hasznát vehetjük valódi (pl. hardver közeli) programoknál, de azért a \verb'Factorial' talán kicsit erõlte\-ttet ``iskola'' példa, ugyanis faktoriálist és mást numerikus aritmetikát való\-színûbb, hogy futás-idõben akarunk számolni. Viszont a sablon meta-progra\-mozás igazi ereje a típus aritmetikában rejlik. 
+Az elképzelhetõ, hogy a \verb'binary' meta-programnak hasznát vehetjük valódi (pl. hardver közeli) programoknál, de azért a \verb'Factorial' talán kicsit erõlte\-tett ``iskola-példa'', ugyanis faktoriálist és más numerikus aritmetikát való\-színûbb, hogy futás-idõben akarunk számolni. Viszont a sablon meta-progra\-mozás igazi ereje a típus aritmetikában rejlik. 
 
-Ez elõzõ két példánál, \verb'unsigned long' típusú paraméterrel kellet példá\-nyo\-sítani a sablonokat, de jól tudjuk, hogy egy tetszõleges \verb"T" típust is adhatunk át sablonoknak. A meghatározott típusú konstansokat és típus paramétereket, vagyis azokat a fogalmakat amit átadhatunk egy sablonnak \emph{meta-adatnak} nevezzük.
+Ez elõzõ két példánál, \verb'unsigned long' típusú paraméterrel kellett példá\-nyo\-sítani a sablonokat, de jól tudjuk, hogy egy tetszõleges \verb"T" típust is adhatunk át sablonoknak. A meghatározott típusú konstansokat és típus paramétereket, vagyis azokat a fogalmakat amit átadhatunk egy sablonnak \emph{meta-adatnak} nevezzük.
 
-A típus számolgatásokra egy szemléletes példa található D. Abrahams és A. Gurkovoy könyvében \cite{tmpboost}, ahol a sablon meta-programozással modellezik a fizikai mértékegységek kompatibilitását és olyan programozást tesznek lehetõvé, hogy például egy hosszt és idõt ábrázoló változó hányadosát csak egy sebességet ábrázoló változónak adhatunk értékül. Az említett példa a következõ kódot teszi lehetõvé:
+A típus számolgatásokra egy szemléletes példa található D. Abrahams és A. Gurkovoy könyvében \cite{tmpboost}, ahol a sablon meta-programozással modellezik a fizikai mértékegységek kompatibilitását és olyan programozást tesznek lehetõvé, hogy például egy távolságot és idõt ábrázoló változó hányadosát csak egy sebességet ábrázoló változónak adhatunk értékül. Az említett példa a következõ kódot teszi lehetõvé:
 \begin{verbatim}
   quantity<float,length> l( 1.0f );
   quantity<float,mass> m( 2.0f );
@@ -100,6 +98,6 @@ A típus számolgatásokra egy szemléletes példa található D. Abrahams és A. Gurkov
   quantity<float,mass> m2 = f/a; // m2=a/f nem fordulna le
 \end{verbatim}  
 
-Természetesen a \verb"m = l;" jellegû szûrést nem túl nagy ördöngösség észre\-venni egy fordítónak. Az Ada programozási nyelvben, \verb"type" paranccsal deklarált \verb"mass" és \verb"length" típusú változók, explicit konverzió nélkül, nem adhatók értékül egymásnak. Az igazi nehézség abban rejlik, hogy a fordító, meg tudja azt állapítani, hogy ha a tömeg ($kg$) típusú \verb|m| változót szorzunk a gyorsulással ($m/s^2$) típusú \verb|a| változóval, akkor erõt ($kg\cdot m/s^2$) kapunk, vagy hogy erõt ($kg\cdot m/s^2$) osztva gyorsulással ($m/s^2$) akkor tömeget ($kg$) kapunk. Tehát a megfelelõ meta-programozással, az utolsó sort biztos, hogy nem fogjuk elrontani, vagyis ha elrontjuk és \verb"m2=f/a" helyet \verb"m2=a/f"-et írunk, jelez a fordító és a programunk nem fordul le. Az Ada csak annyit tudd, hogy jelez, hogy a tömeg és a gyorsulás nem ugyan az, a mi meta-programunk meg azt is tudja, hogy mikor melyik két típus alkot egy harmadikat.
+Természetesen az \verb"m = l;" jellegû szûrést nem túl nagy ördöngösség észre\-venni egy fordítónak. Az Ada programozási nyelvben, \verb"type" paranccsal deklarált \verb"mass" és \verb"length" típusú változók, explicit konverzió nélkül, nem adhatók értékül egymásnak. Az igazi nehézség abban rejlik, hogy a fordító, meg tudja azt állapítani, hogy ha a tömeg ($kg$) típusú \verb|m| változót szorzunk a gyorsulás ($m/s^2$) típusú \verb|a| változóval, akkor erõt ($kg\cdot m/s^2$) kapunk, vagy ha erõt ($kg\cdot m/s^2$) osztunk gyorsulással ($m/s^2$), akkor tömeget ($kg$) kapunk. Tehát a megfelelõ meta-programozással, az utolsó sort biztos, hogy nem fogjuk elrontani, vagyis ha elrontjuk és \verb"m2=f/a" helyet \verb"m2=a/f"-et írunk, jelez a fordító és a programunk nem fordul le. Az Ada csak annyit tud, hogy jelzi, hogy a tömeg és a gyorsulás nem ugyan az, a mi meta-programunk pedig azt is tudja, hogy mikor melyik két típus alkot egy harmadikat.
 
-Egy ilyen meta-programot összehozni nem kis feladat, tehát nem biztos, hogy megéri, viszont a Boost \cite{boost} Template Metaprogramming könyvtárai (Boost \emph{MPL Library} \cite{boost_mpl}, Boost \verb"static_assert" \cite{boost_staticassert} és Boost \emph{TypeTraits}\cite{boost_typetraits}) segít\-ségünkre lehetnek. A Boost egy csomó segéd metaprogramot, metafügg\-vényt, metafüggvény osztályt, magasabb-rendû metafüggvényt stb. a rendelkezésünkre bocsájt, melyek nagyságrendekkel egyszerûbbé teszik a meta-programozást. Sõt, a Boost MPL sokkal általánosabb és programozási szempontból sokkal hasznosabb eszközöket nyújt, mint az elõzõ, fizikai mérték\-egységeket összeegyeztetõ példánk, de a Boost-ról és a könyvtárairól részlet\-esebben majd késõbb.
+Egy ilyen meta-programot összehozni nem kis feladat, tehát nem biztos, hogy megéri, viszont a Boost \cite{boost} Template Metaprogramming könyvtárai (Boost \emph{MPL Library} \cite{boost_mpl}, Boost \verb"static_assert" \cite{boost_staticassert} és Boost \emph{TypeTraits}\cite{boost_typetraits}) segít\-ségünkre lehetnek. A Boost egy csomó segéd metaprogramot, metafügg\-vényt, metafüggvény osztályt, magasabb-rendû metafüggvényt stb. bocsájt a rendelkezésünkre, melyek nagyságrendekkel egyszerûbbé teszik a meta-programozást. Sõt, a Boost MPL sokkal általánosabb és programozás szempontból sokkal hasznosabb eszközöket is nyújt, mint az elõzõ, fizikai mérték\-egységeket összeegyeztetõ példa, de a Boost-ról és könyvtárairól részlete\-sebben majd késõbb.

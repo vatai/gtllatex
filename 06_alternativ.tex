@@ -1,17 +1,17 @@
 \section{Alternatív megoldások}
 Azt beláttuk, hogy kizárólag sablonokat használva nem tudjuk megvalósítani a dinamikus polimorfizmust és ezért nem is tudunk egy hatékony rajzoló programot ha csak ezekre az eszközökre támaszkodunk. Viszont ha gyengítenénk egy kicsit a feltételeinken és megengednénk az öröklõdést és a virtuális függ\-vényeket vagy egy ezzel ekvivalens mechanizmust, akkor egy kellõen hatékony és elegáns megoldás kapnánk. 
 
-A felmerült probléma nem egyedi és sok hasonló problémát már megpró\-báltak megoldani valamilyen módon. Ebbõl adódóan sok más generikus született és ezeket fogjuk megvizsgálni, mennyire lennének alkalmasak, hogy megoldják a GTL-el kapcsolatban felmerült problémát.
+A felmerült probléma nem egyedi és sok hasonló problémát már megpró\-báltak megoldani valamilyen módon. Ebbõl adódóan sok más generikus könyvtár született és ezeket fogjuk megvizsgálni, mennyire lennének alkalmasak, hogy megoldják a GTL-el kapcsolatban felmerült problémákat.
 
 \subsection{CGAL}
 Computational Geometry Algorithms Library -- röviden CGAL -- egy C++-ban írt geometriai algoritmusok könyvtára. Három fõ részre lehet bontani:
 \begin{itemize}
-	\item Az elsõ rész tartalmazza az úgynevezett \emph{Kernel}eket és amûveleteket amelyeket végre lehet rajtuk hajtani. A kernelek állandóméretû, módo\-síthatatlan alap objektumok, mint például pontok, egyenesek, egyenese stb. A kernelek paraméterezése határozza meg a szám\-testet amit a pontok koordinátáinak reprezentálására fogunk használni, továbbá megadható hogy 2, 3 vagy $n$ dimenzióban szeretnénk dolgozni és hogy Euklideszi vagy baricentrikus koordinátákkal dolgozunk. 
-	\item A második rész alapvetõ geometriai adatstruktúrából és algoritmusból áll. Ezeket az adatstruktúrákat, vagyis alakzatokat a megfelelõ kernelekkel, mint traits-ekkel lehet paraméterzeni, ezzel meghatározva azt, hogy milyen alap objektumokkal reprezentáljuk az alakzatokat és az interfész az alakzatok és az algoritmusok között. A CGAL nagyon gazdag geometriai és grafikában használt adatstruktúrát és algoritmust tartalmaz.
+	\item Az elsõ rész tartalmazza az úgynevezett \emph{Kernel}eket és amûveleteket amelyeket végre lehet rajtuk hajtani. A kernelek állandóméretû, módo\-síthatatlan alap objektumok, mint például pontok, egyenesek, síkok stb. A kernelek paraméterezése határozza meg a szám\-testet amit a pontok koordinátáinak reprezentálására fogunk használni, továbbá megadható hogy 2, 3 vagy $n$ dimenzióban szeretnénk dolgozni és hogy Euklideszi vagy baricentrikus koordinátákkal dolgozunk. 
+	\item A második rész alapvetõ geometriai adatstruktúrákból és algoritmusokból áll. Ezeket az adatstruktúrákat, vagyis alakzatokat a megfelelõ kernelekkel, mint trait-ekkel lehet paraméterzeni, ezzel meghatározva azt, hogy milyen alap objektumokkal reprezentáljuk az alakzatokat és az interfészt az alakzatok és az algoritmusok között. A CGAL nagyon sok geometriai és grafikában használt adatstruktúrát és algoritmust tartalmaz.
 	\item A CGAL harmadik része biztosítja a hatékony implementációt és más nem-geometriai funkcionalitást. Ebben a részben találhatók a CGAL STL kiterjesztések, nyelek (handle), ciklikus iterátorok (circulator), objektum generátorok, idõzítõk, I/O folyam operátorok, numerikus típusok támogatása, stb.
 \end{itemize}
 
-A CGAL már egy jól kifejlet geometriai könyvtár. Viszont nem teljesen oldja meg a polimorfizmus problémáját, ugyanis egy \verb"CGAL::Object" típusú objektum biztosítja a polimorf tárolását az objektumoknak. Két alap objektum metszete meghatározása nem egyértelmû, hogy mit ad vissza ezért az \verb"intersection" függvény polimorf visszatérési értékû kell, hogy legyen.
+A CGAL már egy jól kifejlesztett geometriai könyvtár (jelenleg a 3.2.1 verziószámnál tart), viszont nem teljesen oldja meg a polimorfizmus problé\-máját, ugyanis egy \verb"CGAL::Object" típusú objektum biztosítja a polimorf tárolását az alakzatoknak. Két alap objektum metszete meghatározása nem egyértelmû, hogy mit ad vissza ezért az \verb"intersection" függvény polimorf visszatérési értékû kell, hogy legyen.
 \begin{verbatim}
 {
   typedef Cartesian<double>  K;
@@ -35,11 +35,186 @@ A CGAL már egy jól kifejlet geometriai könyvtár. Viszont nem teljesen oldja meg 
 }
 \end{verbatim}
 
+Igaz, hogy nincs virtuális függvény hívás és a \verb"CGAL::Object" explicit nem bázisosztálya a \verb"Segment_2" és a \verb"Point_2" osztálynak, de viszont nem is igazán polimorfak, ugyanis akkor nem kellene \verb"if" elágazásba tenni õket.
+
 \subsection{VTL}
-Már volt róla szó, hogy valójában nem is az alakzatok polimorfizmusára lenne szükségünk, hanem az iterátorok polimorfizmusa elég lenne.
+Már volt róla szó, hogy valójában nem is az alakzatok polimorfizmusára lenne szükségünk, hanem az iterátorok polimorfizmusa elég lenne. A VTL pontosan ezt valósítja meg, de sajnos nem oly módon ahogy nekünk megfelelne. 
+
+A View Template Library (VTL, \cite{vtl})egy flexibilis a C++ STL-jére helyezhetõ adapter réteg, amely Gary Powell és Martin Weiser fejlesztése alatt áll. A VTL úgynevezett nézeteket (view) biztosít STL konténerek számára. A nézetet, egy olyan konténer adapterként lehet definiálni, amely egy konté\-ner interfészt biztosít az alatta lévõ konténerek
+\begin{itemize}
+	\item adatainak egy részéhez,
+	\item újrarendezett adataihoz,
+	\item transzformált adataihoz, vagy
+	\item adatainak megfelelõ kombinációjához.
+\end{itemize}
+Más szóval, a nézetek alternatív elérési módszert biztosítanak egy vagy több konténer adataihoz. Mivel a nézetek is konténerként viselkednek, ezért nem nehéz õket egymásra építeni. Sablon meta-programozással, azt is megoldották a fejlesztõk, hogy a nézetek hatékonyan alkalmazkodjanak az alattuk lévõ konténerekhez. Továbbá a smart iterátorokkal összehasonlítva, a nézetek csak smart iterátor gyárak (factory).
+
+A VTL sokféle nézetett biztosít, többek között, ami számunkra érdekes lenne az a konkatenáció (Concatenation View) és az unió nézet (Union View). 
+
+A konkatenáció nézet egy konténereket tartalmazó konténert tud kisímíta\-ni. Például egy 
+\begin{verbatim}
+  vector<vector< int > > matrix;
+\end{verbatim}
+\verb"int"eket tartalmazó vektorok vektorán, vagyis egy két dimenziós vektoron, úgy megy végig mintha egy dimenziós lenne. Az unió nézet is hasonlóan mûködik. Az unió két különálló konténer összefûzését teszi lehetõvé:
+\begin{verbatim}
+{
+  vector<int> x(4), y(9); 
+  // x és y vektor feltöltése
+
+  typedef union_view<vector<int>,vector<int> > union1_type; 
+
+  cout << "Union of the original containers:" << endl;
+  union1_type u1(x,y);
+  dump(cout, u1); // az unió, vagyis x és y kiírása
+}
+\end{verbatim}
+
+Az utóbbi két nézet azért nem használható a GTL iterátorainak az össze\-fûzésére, mert ezek a nézetek megkövetelik, hogy azonos típusú konténereket fõzzünk össze, tehát egy sokszög és egy kör iterátorait nem tudnánk összefûz\-ni.
+
+Két figyelemreméltó nézet, a polimorf (Polymorphic View) és a downcast nézet. A polimorf nézet, a dereferencia operátort alkalmazza, egy mutatókat tartalmazó konténer minden elemére, biztosítva a polimorf viselkedést. A downcast nézet viszont egy megadott típusra próbálja konvertálni a konténer objektumait, ha az öröklõdés megengedi. Ezek részben kötõdnek a GTL alkalmazásakor felmerült problémákhoz, de nem oldják meg azokat.
 
 \subsection{Boost}
+A \emph{Boost} egy kreatív, inspiráló és rendkívül hatékony C++ könyvtárgyûjte\-mény. Eddig hivatkoztunk a Boost MPL, StaticAssert és a TypeTraits könyvtárak\-ra, és megemlítettük a Function könyvtárat. 
 
-\subsection{Típus törlés - any\_iterator}
+\subsubsection{Boost MPL Library}
+A Boost könyvtárak erõsen támaszkodnak generikus és meta-programo\-zásra. A Boost MPL könyvtár, kimondottan olyan elemeket tartalmaz amelyek a meta-programozást segítik. A fizikai mértékegységek típusival számoló példa megvalósítása elképzelhetetlen lenne az MPL segítsége nélkül. Az MPL könyvtárban többek között a következõ meta-függvények és meta-függvény osztályok találhatók:
+\begin{itemize}
+	\item Egész típusú konstansokat burkoló osztály-sablonok, mint például a \verb"bool_<n>", \verb"int_<n>", \verb"long_<n>", \verb"size_t<n>" és \verb"integral_c<T,n>", amik a futás-idejû konstansoknak felelnek meg. Ezek minden egész számhoz, egy külön típust rendelnek, ami megkönnyíti a meta-programozást. 
+	\begin{verbatim}
+  // int_<5> egy típus nem érték így
+  // típus paraméterként is át lehet adni
+  static int const five = mpl::int_<5>::value; 
+	\end{verbatim}
 
+	\item Típus sorozatok, mint például a STL futás-idejû \verb"vector" megfelelõje, amely több típus sorozatából, csinál egy új típust.
+	\begin{verbatim}
+  typedef boost::mpl::vector<
+    signed char, short, int, long> signed_types;
+	\end{verbatim}
+	
+	\item Egészek sorozatát burkoló osztályok, mint például a \verb"vector_c", amely több konstans egészek sorozatához, rendel egy típust.
+	\begin{verbatim}
+  typedef mpl::vector_c<int,1,0,0,0,0,0,0> mass;
+  typedef mpl::vector_c<int,0,1,0,0,0,0,0> length;
+	\end{verbatim}
 
+	\item Fordítás-idejû mûveletek típusokkal. A \verb"plus" például, két egészet burkoló osztályból, a két egész összegének a burkoló osztályának típusát adja vissza.
+	\begin{verbatim}
+  BOOST_STATIC_ASSERT((
+    mpl::plus< mpl::int_<2>, mpl::int_<3>
+    >::type::value == 5
+  ));	
+  \end{verbatim}
+
+	\item A fordítás-idejû sorozatokat transzformáló meta-függvények, mint pél\-dául a \verb"transform", ami az STL azonos nevû függvényének, fordítás-idejû megfelelõje.
+	\begin{verbatim}
+  struct plus_f
+  {
+    template <class T1, class T2>
+    struct apply
+    {
+      typedef typename mpl::plus<T1,T2>::type type;
+    };
+  };
+  
+  // ... majd alkalmazva
+  typedef typename mpl::transform<D1,D2,plus_f>::type dim;
+    \end{verbatim}
+Az elõzõ \verb"plus_f" meta-függvény osztály megadható öröklõdéssel is:	
+	\begin{verbatim}
+  struct plus_f
+  {
+    template <class T1, class T2>
+    struct apply
+      : mpl::plus<T1,T2> {};
+  };
+	\end{verbatim}
+	
+	\item Magasabb-rendû függvények, mint például a $\lambda$-kalkulusból jól ismert \verb"lambda"  meta-függvény és az \verb"apply" meta-függvény. Ezek még egyszerûbbé teszik az elõzõ feladatokat, és különleges \emph{placeholder}ekkel a következõ kód írását teszik lehetõvé.
+	\begin{verbatim}
+  typedef typename mpl::transform
+    <mass,length,mpl::minus<_1,_2> >::type dim;
+	\end{verbatim}
+\end{itemize}
+
+\subsubsection{Boost.StaticAssert}
+A StaticAssert pontosan azt csinálja, amire a neve is utal. A futás-idejû assert, terminálja a programot ha valamilyen feltétel nem teljesül, vagyis ha a program valahogy a programozó által inkonzisztens állapotba lép. A Boost StaticAssert-je, pedig a fordítást terminálja, ha fordításkor valami nem teljesül, vagyis ha a meta-program kerül inkonzisztens állapotba. 
+
+\subsubsection{Boost.TypeTraits}
+A Boost TypeTrais könyvtára a traiteket támogatja, ami, az objektum orientált programozásban jól ismert burkolás fogalmának, a  meta-programozási megfelelõje lehetne. A traitek használatára tipikus példa a \verb"swap" függvény amely, egy egészeket tároló \emph{lista} iterátorán és egy egészeket tároló \emph{vektor} iterátorán, a traitek használata nélkül nem mûködne.
+
+\subsubsection{Boost.Function}
+A \emph{Function} egy iszonyúan hatékony könyvtár amely varázslatos módon biztosítja a fordítás- és futás-idejû polimorfizmust is. A Function könyvtár függvény objektum burkoló osztály-sablonokból áll. A Boost \verb"function" típu\-sú objektumok a függvény-mutatók általánosítása. A Function könyvtár  osztály-sablonjainak meg kell adni egy típus listát, amely egy függvény vissza\-térési értékének típusát, majd a paramétereinek típusát tartalmazza, vagyis egy függvény szignatúrát ír le. Egy ilyen típusú objektumnak bármilyen függvényszerû objektumot értékül adhatunk, legyen az akár függvény-mutató (függvény-pointer) akár funktor objektum, és a a \verb"boost::function" objektum az elvárt módon fog viselkedni. A function könyvtár a következõ kódot teszi lehetõvé:
+\begin{verbatim}
+
+// float (int,int) szignatúrájú funktor
+struct int_div { 
+  float operator()(int x, int y) const { return((float)x)/y; }; 
+}; 
+
+// float (int,int) szignatúrájú függvény
+float mul_ints(int x, int y) { return ((float)x) * y; }
+
+int main()
+{
+
+  // boost::function<float (int x, int y)> f; 
+  // olvashatóbb szintaxis, viszont nem hordozható
+  
+  // hordozható változat
+  boost::function2<float, int, int> f;
+  
+  int choice;
+  cin >> choince;
+  if( choice == MUL )
+    f = & mul_ints; // függvény-mutató
+    // a & opcionális
+  else
+    f = int_div; // funktor
+    
+  cout << f( 3, 4 ) << endl;
+}
+\end{verbatim}
+A fenti program futás idõben dönti el, hogy f szorzás lesz e, vagy osztás, attól függetlenül, hogy az osztás egy osztályként, vagyis \verb"struct" ként van definiálva, amelynek implementálva van a függvényhívó operátora, míg a szorzás egy egyszerû függvényként van definiálva. További érdekesség az a tény, a függvény-mutató és a funktor nem származnak közös õsosztályból, sõt nem is származtatással vannak létrehozva, tehát teljesen független típusú objektumok.
+
+\subsection{Multi paradigma programozás és típustörlés}
+Thomas Becker, a honlapján található cikkében szemlélteti az objektum orientált és a generikus programozás közötti feszültséget. Ez az amivel szembesülünk mi is a GTL alkalmazásánál. A megoldás úgy tûnik, hogy abban rejlik, ha feloldva a feszültséget a generikus és az objektum orientált programozás között, alkalmazzuk mindkét paradigmát egyszerre, és így kapjuk a multi paradigma programozást. 
+
+Egy hatékony módszer a típustörlés (type erasure). Erre egy jól ismert példák a Boost.Any és a Boost.Funciont. Becker egy \verb"any_iterator" sablon-osztály könyvtárt fejlesztett ki amely megoldhatná a GTL alakzatainak a tárolását, mivel ahogy már korábban is megállapítottuk, elég lenne ha csak az iterátor\-okat tudnánk tárolni. Tudjuk, hogy minden alakzat iterátora vagy input vagy output iterátor, azaz a következõk egyike
+\begin{verbatim}
+  typename shape<scalar>::input_iterator;
+  typename shape<scalar>::output_iterátor;
+\end{verbatim}
+ahol \verb"shape" helyet a három alakzat típusának egyike áll. Ez a C++ fordító szempontjából három-három teljesen különbözõ és egymástól teljesen független típus. Viszont ez a három input és három output iterátor csak az alakzat típusában különbözik egymástól, ez viszont minket egyáltalán nem kellene, hogy érintsen, ugyanis nekünk csak az a fontos, hogy iterálni, dereferenciálni és attól függõen, hogy input vagy output iterátorról van-e szó, írni illetve olvasni lehessen a dereferenciált iterátort. Ezt a problémát oldja meg az \verb"any_iterator" a Boost Functionhoz hasonló módon.
+\begin{verbatim}
+  typedef any_iterator<
+    int, // value type
+    boost::bidirectional_traversal_tag, // traversal tag. 
+    int const &, // reference type
+    ptrdiff_t // difference type 
+  >
+  bidirectional_const_iterator_to_int;
+
+  bidirectional_const_iterator_to_int 
+    a_bidirectional_const_iterator_to_int;
+  
+  std::set<int>::const_iterator i1 = a_set.begin(); // ok
+  a_bidirectional_const_iterator_to_int = i1;
+
+  std::set<int>::iterator i2 = a_set.begin(); // ok
+  a_bidirectional_const_iterator_to_int = i2;
+
+  std::vector<int>::const_iterator i3 = a_vector.begin(); // ok
+  a_bidirectional_const_iterator_to_int = i3;
+
+  std::vector<int>::iterator i4 = a_vector.begin(); // ok
+  a_bidirectional_const_iterator_to_int = i4;
+
+  // std::vector<std::pair<int, int> >::iterator i5; 
+  // nem ok, value type nem konvertál int-re.
+\end{verbatim}
+A fenti értékadások mint futás-idõben történhet, vagyis program inputjától függhetnek.
+
+A GTL alakzatainak iterátorait, az \verb"any_iterátor"ral kompatibilissá téve, az alakzatok iterátorait egy \verb"any_iterator" listában tárolhatnánk, és mivel a Boost Functionhoz hasonlóan, az \verb"any_iterator" is futás-idõben polimorf, ezért megfelelõ módon fog viselkedni. Az \verb"any_iterator" fõ elõnye, hogy az iterátorok teljesen függetlenek lehetnek és nincs szükség közös bázis osztályra. Továbbá ezzel a módszerrel is csak $O(m+n)$ mûveletet és osztályt kell implementálnunk és az algoritmusokat és az adatszerkezeteket egymástól teljesen függetlenül fejleszthetjük. 
+
+% záradék

@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  11 JUN 2007 08:42
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.2.4)  11 JUN 2007 08:43
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -51,7 +51,7 @@ Package babel Info: Making ` an active character on input line 597.
 ))
 ("C:\Program Files\MiKTeX 2.5\tex\generic\oberdiek\ifpdf.sty"
 Package: ifpdf 2006/02/20 v1.4 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in pdf mode detected.
+Package ifpdf Info: pdfTeX in pdf mode not detected.
 )
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2000/07/18 v2.13 AMS math features
@@ -147,39 +147,7 @@ Package: ntheorem 2002/01/07 1.203
 \thm@topsepadd=\skip48
 )
 \c@all=\count100
- ("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\color.sty"
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\00miktex\color.cfg"
-File: color.cfg 2005/12/29 v1.1 MiKTeX 'color' configuration
-)
-Package color Info: Driver file: pdftex.def on input line 130.
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\pdftex.def"
-File: pdftex.def 2007/04/17 v0.04g Graphics/color for pdfTeX
-\Gread@gobject=\count101
-))
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\graphicx.sty"
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\keyval.sty"
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks33
-)
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\graphics.sty"
-Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\trig.sty"
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-)
-("C:\Program Files\MiKTeX 2.5\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2005/12/29 v1.2 MiKTeX 'graphics' configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 90.
-)
-\Gin@req@height=\dimen115
-\Gin@req@width=\dimen116
-) (gtl.aux)
+ (gtl.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
@@ -192,43 +160,23 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
-
-("C:\Program Files\MiKTeX 2.5\tex\context\base\supp-pdf.tex"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
-\scratchdimen=\dimen117
-\scratchbox=\box28
-\nofMPsegments=\count103
-\nofMParguments=\count104
-\MPscratchCnt=\count105
-\MPscratchDim=\dimen118
-\MPnumerator=\count106
-\everyMPtoPDFconversion=\toks34
-) (00_cim.tex
-
-Package pdftex.def Warning: Option `bb' does not make sense,
-(pdftex.def)                using `viewport' instead on input line 7.
-
-<elte3.png, id=1, 118.5228pt x 108.405pt>
-File: elte3.png Graphic file (type png)
- <use elte3.png>
-LaTeX Font Info:    Try loading font information for U+msa on input line 13.
-
-("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsa.fd"
+ (gtl.toc
+LaTeX Font Info:    Try loading font information for U+msa on input line 3.
+ ("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 13.
-
+LaTeX Font Info:    Try loading font information for U+msb on input line 3.
 ("C:\Program Files\MiKTeX 2.5\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 ) [1
 
-{psfonts.map} <elte3.png (PNG copy)>]) (gtl.toc [1])
+])
 \tf@toc=\write3
- [2] (01_bevezeto.tex) [3] (02_kialakul.tex
-[4]
+ [2]
+(01_bevezeto.tex) [3] (02_kialakul.tex [4]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 28.
- ("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
+
+("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
@@ -244,27 +192,12 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 \tf@thm=\write4
  [41] (gtl.aux) ) 
 Here is how much of TeX's memory you used:
- 2664 strings out of 95402
- 29764 string characters out of 1187029
- 90286 words of memory out of 1087305
- 5657 multiletter control sequences out of 60000
- 16111 words of font info for 63 fonts, out of 1000000 for 2000
+ 1936 strings out of 95403
+ 20890 string characters out of 1187056
+ 81525 words of memory out of 1078544
+ 4988 multiletter control sequences out of 60000
+ 14565 words of font info for 57 fonts, out of 1000000 for 2000
  14 hyphenation exceptions out of 8191
- 27i,9n,24p,1344b,287s stack positions out of 5000i,500n,10000p,200000b,32768s
-PDF statistics:
- 177 PDF objects out of 300000
- 0 named destinations out of 300000
- 6 words of extra memory for PDF output out of 10000
-<C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi10.pfb
-><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti10.pfb><C:/Program Fil
-es/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.5/font
-s/type1/bluesky/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/
-cm/cmr8.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti12.pfb><C:/
-Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb><C:/Program Files/Mi
-KTeX 2.5/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.5/fonts/t
-ype1/bluesky/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/
-cmr10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><C:/Program Files/MiKT
-eX 2.5/fonts/type1/bluesky/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.5/fonts/type
-1/bluesky/cm/cmr12.pfb>
-Output written on gtl.pdf (42 pages, 246640 bytes).
+ 27i,8n,24p,1344b,279s stack positions out of 5000i,500n,10000p,200000b,32768s
+
+Output written on gtl.dvi (41 pages, 148012 bytes).

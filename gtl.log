@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  11 JUN 2007 08:41
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=pdflatex 2007.1.31)  11 JUN 2007 08:42
 entering extended mode
 **gtl.tex
 (gtl.tex
@@ -223,96 +223,48 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 13.
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 ) [1
 
-{psfonts.map} <elte3.png (PNG copy)>]) (gtl.toc)
+{psfonts.map} <elte3.png (PNG copy)>]) (gtl.toc [1])
 \tf@toc=\write3
- [1] (01_bevezeto.tex
-
-LaTeX Warning: Citation `gsdgtl' on page 2 undefined on input line 4.
-
-) [2] (02_kialakul.tex
-
-LaTeX Warning: Citation `tij' on page 3 undefined on input line 6.
-
-[3]
+ [2] (01_bevezeto.tex) [3] (02_kialakul.tex
+[4]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 28.
  ("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 28.
- [4]) (03_tmp.tex
-[5]
-
-LaTeX Warning: Citation `haladocpp' on page 6 undefined on input line 7.
-
-[6] [7]
-
-LaTeX Warning: Citation `tmpboost' on page 8 undefined on input line 85.
-
-[8]
-
-LaTeX Warning: Citation `boost' on page 9 undefined on input line 103.
-
-
-LaTeX Warning: Citation `boost_mpl' on page 9 undefined on input line 103.
-
-
-LaTeX Warning: Citation `boost_staticassert' on page 9 undefined on input line 
-103.
-
-
-LaTeX Warning: Citation `boost_typetraits' on page 9 undefined on input line 10
-3.
-
-) (04_gtl.tex [9] [10] [11] [12]
-
-LaTeX Warning: Citation `cgal' on page 13 undefined on input line 128.
-
-[13] [14]
+ [5]) (03_tmp.tex
+[6] [7] [8] [9]) (04_gtl.tex [10] [11] [12] [13] [14] [15]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 222.
- [15] [16] [17]) (05_gtldraw.tex [18]
-
-LaTeX Warning: Citation `gtldraw' on page 19 undefined on input line 35.
-
-[19] [20] [21] [22] [23] [24] [25] [26] [27] [28]) (06_alternativ.tex [29]
-[30]
-
-LaTeX Warning: Citation `vtl' on page 31 undefined on input line 43.
-
-[31] [32] [33] [34] [35] [36]) (07_konkluzio.tex [37]) (z_bib.tex [38] [39])
+ [16] [17] [18])
+(05_gtldraw.tex [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29])
+(06_alternativ.tex [30] [31] [32] [33] [34] [35] [36] [37]) (07_konkluzio.tex
+[38]) (z_bib.tex [39] [40])
 \tf@thm=\write4
-
-[40] (gtl.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+ [41] (gtl.aux) ) 
 Here is how much of TeX's memory you used:
- 2666 strings out of 95402
- 29799 string characters out of 1187029
- 90230 words of memory out of 1087249
- 5659 multiletter control sequences out of 60000
+ 2664 strings out of 95402
+ 29764 string characters out of 1187029
+ 90286 words of memory out of 1087305
+ 5657 multiletter control sequences out of 60000
  16111 words of font info for 63 fonts, out of 1000000 for 2000
  14 hyphenation exceptions out of 8191
  27i,9n,24p,1344b,287s stack positions out of 5000i,500n,10000p,200000b,32768s
 PDF statistics:
- 174 PDF objects out of 300000
+ 177 PDF objects out of 300000
  0 named destinations out of 300000
  6 words of extra memory for PDF output out of 10000
-<C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi10.pfb><C:/Program Fi
-les/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.5/f
-onts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky
-/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr8.pfb><C:
-/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti12.pfb><C:/Program Files/M
-iKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.5/fonts/
-type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm
-/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr10.pfb><C:/P
-rogram Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Program Files/MiK
-TeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.5/fonts/ty
-pe1/bluesky/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cm
-r12.pfb>
-Output written on gtl.pdf (41 pages, 243897 bytes).
+<C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi10.pfb
+><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti10.pfb><C:/Program Fil
+es/MiKTeX 2.5/fonts/type1/bluesky/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.5/font
+s/type1/bluesky/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/
+cm/cmr8.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmti12.pfb><C:/
+Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmmi12.pfb><C:/Program Files/Mi
+KTeX 2.5/fonts/type1/bluesky/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.5/fonts/t
+ype1/bluesky/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/
+cmr10.pfb><C:/Program Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.5/fonts/type1/bluesky/cm/cmbx12.pfb><C:/Program Files/MiKT
+eX 2.5/fonts/type1/bluesky/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.5/fonts/type
+1/bluesky/cm/cmr12.pfb>
+Output written on gtl.pdf (42 pages, 246640 bytes).

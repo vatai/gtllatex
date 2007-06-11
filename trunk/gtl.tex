@@ -1,13 +1,8 @@
 \documentclass[a4paper,12pt]{article}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% localization	
 \usepackage[latin2]{inputenc}
 \usepackage[magyar]{babel}
 \usepackage{ifpdf}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% magyarul írjuk a dokumentumot, így 
-% magyar nyelvû komenteket használlunk
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -22,16 +17,16 @@
 
 \begin{document}
 \ifpdf \input{00_cim} \fi
-\input{01_bevezeto}
-	\pagebreak
 \tableofcontents 
+	\pagebreak
+\input{01_bevezeto}
 	\pagebreak
 \input{02_kialakul}
 \input{03_tmp}
 \input{04_gtl}
 \input{05_gtldraw}
 \input{06_alternativ}
-% \input{07_uj}
+\input{07_konkluzio}
 	\pagebreak
 \input{z_bib}
 \end{document}

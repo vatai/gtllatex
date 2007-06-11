@@ -1,8 +1,13 @@
+\newpage
 \section{Záradék}
-Az objektum orientált és a generikus paradigma elemzése után, mélyebben betekintettünk a sablon meta-programozás lehetõségeibe. 
-Ezek után a GTL könyvtár elemzésével folytattuk. 
-Megpróbáltuk a GTL-t alkalmazva, egy mûködõ rajzprogramot elkészíteni. Ez többé kevésbé sikerült, viszont a megoldás messzemenõen nem felelt meg elvárásainknak. 
-Szembesültünk a generikus programozás korlátaival és megpróbáltuk ezeket megkerülni. Arra jutotunk, hogy megkerülhetetlen a dinamikus, futás-idejû polimorfizmus és a statikus, parametrikus polimorfizmus nem elég. 
-Megvizsgáltunk más hasonló problémákat és generikus könyvtárakat amelyek hasonló problémákat oldanak meg és ezeket a könyvtárakat elemeztük.
-Végül javasoltunk egy alternatív megoldást, amely meta-programozással biztosítja a dinamikus polimorfizmust.
-Tehát a feltételek enyhítésével, megengedve a dinamikus polimorfizmust, a sablon meta-programozás eszközeivel kifejleszthetõk a Boost.Functionhoz hasonló osztály-sablonok amelyek, egyszerre biztosítják a dinamikus polimorfizmus és a generikus programozás által nyújtott típus függetlenséget. Azaz feleslegessé teszik a közös bázisosztályokat és lehetõvé teszik, hogy az objektum orientált programozással ellentétben, egy $n$ adatszerkezetet és $m$ algoritmust biztosító könyvtárban csak $O(n+m)$ algoritmust keljen megvalósítani $O(m\cdot n)$ helyett.
+Az elvégzett munka a következõ pontokat bontható:
+\begin{itemize}
+	\item Az objektum orientált és a generikus paradigma elemzése után, mélyeb\-ben betekintettünk a sablon meta-programozás lehetõségeibe. 
+	\item Ezek után a GTL könyvtár elemzésével folytattuk. 
+	\item Megpróbáltuk a GTL-t alkalmazva, egy mûködõ rajzprogramot elkészí\-teni. Ez többé kevésbé sikerült, viszont a megoldás messzemenõen nem felelt meg elvárásainknak. 
+	\item Szembesültünk a generikus programozás korlátaival és megpróbáltuk ezeket megkerülni. Arra jutottunk, hogy megkerülhetetlen a dinamikus, futás-idejû polimorfizmus, tehát a statikus, parametrikus polimorfizmus nem elég. 
+	\item Megvizsgáltunk és elemeztünk más hasonló problémákat és olyan generikus könyvtárakat amelyek hasonló problémákat oldanak meg.
+	\item Végül javasoltunk egy alternatív megoldást, amely meta-programozás\-sal biztosítja a dinamikus polimorfizmust.
+\end{itemize}
+
+Tehát a feltételek enyhítésével, megengedve a dinamikus polimorfizmust, a sablon meta-programozás eszközeivel kifejleszthetõk a Boost.Functionhoz hasonló osztály-sablonok amelyek, egyszerre biztosítják a dinamikus polimorfizmus és a generikus programozás által nyújtott típus függetlenséget, azaz feleslegessé teszik a közös bázisosztályokat és lehetõvé vállik, hogy az objektum orientált programozással ellentétben, egy $n$ adatszerkezetet és $m$ algoritmust biztosító könyvtárban csak $O(n+m)$ metódust keljen megvalósítani $O(m\cdot n)$ helyett. Ez az új paradigma rendelkezik egyaránt a generikus és az objektum orientált paradigma tulajdonságaival, multi paradigmának nevezik.

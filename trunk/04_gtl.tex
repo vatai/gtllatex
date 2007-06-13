@@ -30,7 +30,7 @@ public:
   T r;       // sugar
   // ...
 \end{verbatim}
-A kör a \verb"vect<T> o;" csúccsal és a \verb"T r;" sugárral van reprezentálva. A konstruktor a megfelelõ módon inicializálja ezeket a változókat. Ha paraméter nélkül hívjuk meg a konstruktort, akkor egy $0$ sugarú kört kapunk az origón. Az iterátorokat ugorjuk egyenlõre át. Ez után következik pár segéd függvény:
+A kör a \verb"vect<T> o;" csúccsal és a \verb"T r;" sugárral van reprezentálva. A konstruktor a megfelelõ módon inicializálja ezeket a változókat. Ha paraméter nélkül hívjuk meg a konstruktort, akkor egy $0$ sugarú kört kapunk az origón. Az iterátorokat ugorjuk egyelõre át. Ez után következik néhány segéd függ\-vény:
 \begin{verbatim}
 template<typename T> class circle
 {
@@ -52,11 +52,11 @@ public:
   { return input_iterator(); }
 };
 \end{verbatim}
-A \verb"set()" metódussal tudjuk a sugarat és az origót közvetlenül módosítani, továbbá a többi alakzattól eltérõen a kör input iterátor lekérdezõ metódusa paraméterezhetõ, ahol a paraméter egy pozitív egész, és az iterátor finomsá\-gát adja meg. Az iterátor finomsága alatt azt kell érteni, hogy hány lépésben iterál végig a körön. Az alap értelmezett értéke ennek a paraméternek 0, és ekkor az origót adja vissza. % Ekkor lényegében egy szabályos háromszög csúcsain lépked végig az iterátor, de ez bõven elég egy kör pontos meghatározásához.
+A \verb"set()" metódussal tudjuk a sugarat és az origót közvetlenül módosítani, továbbá a többi alakzattól eltérõen a kör input iterátor lekérdezõ metódusa paraméterezhetõ, ahol a paraméter egy pozitív egész, és az iterátor finomsá\-gát adja meg. Az iterátor finomsága alatt azt kell érteni, hogy hány lépésben iterál végig a körön. Az alapértelmezett értéke ennek a paraméternek 0, és ekkor az origót adja vissza. % Ekkor lényegében egy szabályos háromszög csúcsain lépked végig az iterátor, de ez bõven elég egy kör pontos meghatározásához.
 
 \subsubsection{Szabályos sokszög -- reg\_poly}
 
-A szabályos sokszög implementációja se túl bonyolult (eltekintve az iterá\-torok implementációjától):
+A szabályos sokszög implementációja sem túl bonyolult (eltekintve az iterá\-torok implementációjától):
 \begin{verbatim}
 template<typename T> class reg_poly
 {
@@ -125,9 +125,9 @@ Ahogy az STL könyvtárnál már tapasztaltuk, az iterátorok kulcsfontosságú szerepe
 \end{verbatim}
 iterátorok. Az elnevezés lehet, hogy nem éppen a legszerencsésebb, ugyanis nem az alakzatok, hanem az algoritmusok szempontjából néz\-ve kapták ezeket a neveket. Az input iterátor az amelyik az algoritmusok inputját biztosítja, vagyis a ``konstans'' iterátor, ami az alakzat pillanatnyi állapotát tükrözi. Az output iterátor pedig az algoritmusok outputját biztosítják, vagyis amikor ezekre alkalmazzuk a \verb"*" operátort akkor egy \verb"vect<T>&" referencia szerû objektumot adnak vissza, ami módosítható.
 
-Érdemes megfigyelni, hogy mind három GTL alakzat, az STL konténerei\-vel szemben, nem lineáris hanem ciklikus. Ezért az iterátorok nem egy $[a,b)$ jellegû intervallumot járnak be, hanem körbejárják az alakzat csúcsait, és logikus, hogy az utolsó csúcs után, újra az elsõ következik. Ebbõl adódóan az alakzatok iterátorait célszerûbb ciklikus iterátoroknak, vagy cirkulátornak (circulator \cite{cgal}) nevezni.
+Érdemes megfigyelni, hogy mindhárom GTL alakzat, az STL konténerei\-vel szemben, nem lineáris hanem ciklikus. Ezért az iterátorok nem egy $[a,b)$ jellegû intervallumot járnak be, hanem körbejárják az alakzat csúcsait, és logikus, hogy az utolsó csúcs után, újra az elsõ következik. Ebbõl adódóan az alakzatok iterátorait célszerûbb ciklikus iterátoroknak, vagy cirkulátornak (circulator \cite{cgal}) nevezni.
 
-Mivel nem lineáris iterátorokról van szó, hanem ciklikusakról, nincs külön eleje és vége az intervallumoknak amit bejárnak, hanem a \verb"begin()" és az \verb"end()" megegyezik. Ez miatt elég csak egy-egy metódus amelyik az input és output iterátort tudja lekérdezni. Ezek a következõk:
+Mivel nem lineáris iterátorokról van szó, hanem ciklikusakról, nincs külön eleje és vége az intervallumoknak amit bejárnak, hanem a \verb"begin()" és az \verb"end()" megegyezik. Emiatt elég csak egy-egy metódus amelyik az input és output iterátort tudja lekérdezni. Ezek a következõk:
 \begin{verbatim}
   input_iterator get_input_iter();
   output_iterator get_output_iter();
@@ -172,7 +172,7 @@ pointer\_type 	& \verb"vect<T>*" 		& pointer\_type 	& \verb"vect<T>*" \\
 
 
 %%%% ref nem jo mukodik
-Mind három alakzatnak az iterátorai közös interfésze megtalálható a ~\ref{tab:typedef} és ~\ref{tab:operator} táblázatokban. Ezen kívül minden alakzat input iterátora rendelkezik két konstruktorral:
+Mindhárom alakzat iterátorainak közös interfésze megtalálható az ~\ref{tab:typedef} és ~\ref{tab:operator} táblázatokban. Ezen kívül minden alakzat input iterátora rendelkezik két konstruktorral:
 \begin{verbatim}
   input_iterator( ... ); // alakzattól függö paraméterek
   input_iterator(void);  // a null_iterator() adja vissza
@@ -181,7 +181,7 @@ Ezen kívül az input iterátorok biztosítanak még egy-egy
 \begin{verbatim}
   null_iterator() { return input_iterator(); }
 \end{verbatim} 
-metódust is. A paraméter nélküli konstruktor egy érvénytelen objektum iterátorát hozza létre, azaz a \verb"null_iterator" egy ilyen iterátort ad vissza. Érvénytelen objektum alatt egy, valamilyen értelemben, null-objektumot ér\-tünk, mint például egy nulla sugarú kör vagy egy csúcs nélküli sokszög. Az elsõ (paraméteres) konstruktor, a megfelelõ alakzat csúcsain fog végig iterálni az \verb"operator++" és \verb"operator--" mûveletekkel és az \verb"operator*" operátorral lehet a csúcsot ábrázoló \verb"vect<T>" vektort lekérdezni. Az alakzatok input iterátor lekérdezõ \verb"get_input_iter()" metódusa, az iterátornak melyet létre hoz, át adja az összes szükséges adatott az alakzat leírásához. A körnél még a konstruktor paramétereként át lehet adni az iterátor ``finomságát'' is és ezek az iterátor adattagjaiban tárolódnak.
+metódust is. A paraméter nélküli konstruktor egy érvénytelen objektum iterátorát hozza létre, azaz a \verb"null_iterator" egy ilyen iterátort ad vissza. Érvénytelen objektum alatt egy, valamilyen értelemben, null-objektumot ér\-tünk, mint például egy nulla sugarú kör vagy egy csúcs nélküli sokszög. Az elsõ (paraméteres) konstruktor, a megfelelõ alakzat csúcsain fog végig iterálni az \verb"operator++" és \verb"operator--" mûveletekkel és az \verb"operator*" operátorral lehet a csúcsot ábrázoló \verb"vect<T>" vektort lekérdezni. Az alakzatok input iterátor lekérdezõ \verb"get_input_iter()" metódusa, az iterátornak melyet létre hoz, átadja az összes szükséges adatott az alakzat leírásához. A körnél még a konstruktor paramétereként át lehet adni az iterátor ``finomságát'' is és ezek az iterátor adattagjaiban tárolódnak.
 
 \subsection{Algoritmusok}
 A GTL alakzataival végrehajtott algoritmusokat, aszerint, hogy módosítják-e az alakzatot, három csoportra oszthatjuk: 

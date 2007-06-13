@@ -35,7 +35,7 @@ int main()
    return 0;
 }
 \end{verbatim}
-ugyan is a fordító program nem találhatja ki, milyen számot fog a felhasználó bevinni.
+ugyanis a fordító program nem találhatja ki, milyen számot fog a felhasználó bevinni.
 
 Természetesen jogos az észrevétel, hogy minek írjunk egy furcsa, eleve nehezen érthetõ és talán félrevezetõ \verb|Factorial| sablon-metaprogramot ha egy egyszerû kalkulátor programmal, vagy akár papíron is kiszámolhatjuk, hogy $15!=1307674368000$. Tehát a következõ program, ugyan azt teszi, csak sablon meta-programozás nélkül:
 \begin{verbatim}
@@ -62,7 +62,7 @@ struct binary<0> // terminates recursion
   static unsigned const value = 0; 
 };
 \end{verbatim}
-Ezt a metaprogramot használva, a következõ program a $42$es számot fogja kiírni:
+Ezt a metaprogramot használva, a következõ program a $42$ számot fogja kiírni:
 \begin{verbatim}
 int main()
 {
